@@ -1,0 +1,92 @@
+[
+  {
+    "rank": 1,
+    "login": "top-contributor",
+    "avatar": "https://avatars.githubusercontent.com/u/12345?v=4",
+    "profile": "https://github.com/top-contributor",
+    "contributions": 1234,
+    "repos": ["OpenLIFU-python", "openwater-docs", "openwater-community", "openwater-commons", "OpenMOTION-console"],
+    "badges": ["🥇 Top Contributor", "🏆 Core Contributor", "🌟 Multi-Repo Contributor"]
+  },
+  {
+    "rank": 2,
+    "login": "hardware-specialist",
+    "avatar": "https://avatars.githubusercontent.com/u/23456?v=4",
+    "profile": "https://github.com/hardware-specialist",
+    "contributions": 987,
+    "repos": ["opw_neuromod_hw", "opw_bloodflow_hw", "OpenMOTION-sensor"],
+    "badges": ["🥈 Second Place", "🏆 Core Contributor", "🔧 Hardware Specialist"]
+  },
+  {
+    "rank": 3,
+    "login": "docs-hero",
+    "avatar": "https://avatars.githubusercontent.com/u/34567?v=4",
+    "profile": "https://github.com/docs-hero",
+    "contributions": 765,
+    "repos": ["openwater-docs", "awesome-openwater", "openwater-community"],
+    "badges": ["🥉 Third Place", "🏆 Core Contributor", "📚 Documentation Hero"]
+  },
+  {
+    "rank": 4,
+    "login": "rising-star",
+    "avatar": "https://avatars.githubusercontent.com/u/45678?v=4",
+    "profile": "https://github.com/rising-star",
+    "contributions": 542,
+    "repos": ["OpenLIFU-python", "openwater-docs"],
+    "badges": ["⭐ Rising Star"]
+  },
+  {
+    "rank": 5,
+    "login": "code-ninja",
+    "avatar": "https://avatars.githubusercontent.com/u/56789?v=4",
+    "profile": "https://github.com/code-ninja",
+    "contributions": 423,
+    "repos": ["OpenLIFU-python", "OpenMOTION-console", "openwater-laser"],
+    "badges": []
+  },
+  {
+    "rank": 6,
+    "login": "test-champion",
+    "avatar": "https://avatars.githubusercontent.com/u/67890?v=4",
+    "profile": "https://github.com/test-champion",
+    "contributions": 389,
+    "repos": ["OpenLIFU-python", "OpenMOTION-TestAPP"],
+    "badges": ["🧪 Testing Champion"]
+  },
+  {
+    "rank": 7,
+    "login": "newcomer-2025",
+    "avatar": "https://avatars.githubusercontent.com/u/78901?v=4",
+    "profile": "https://github.com/newcomer-2025",
+    "contributions": 42,
+    "repos": ["openwater-docs"],
+    "badges": ["🌟 Newcomer"]
+  },
+  {
+    "rank": 8,
+    "login": "firmware-expert",
+    "avatar": "https://avatars.githubusercontent.com/u/89012?v=4",
+    "profile": "https://github.com/firmware-expert",
+    "contributions": 356,
+    "repos": ["motion-sensor-fw", "motion-console-fw", "openmotion-console-v2"],
+    "badges": []
+  },
+  {
+    "rank": 9,
+    "login": "data-scientist",
+    "avatar": "https://avatars.githubusercontent.com/u/90123?v=4",
+    "profile": "https://github.com/data-scientist",
+    "contributions": 298,
+    "repos": ["opw_oncolysis_data", "openwater-acousto-optic-data"],
+    "badges": []
+  },
+  {
+    "rank": 10,
+    "login": "community-builder",
+    "avatar": "https://avatars.githubusercontent.com/u/12340?v=4",
+    "profile": "https://github.com/community-builder",
+    "contributions": 267,
+    "repos": ["openwater-community", "openwater-commons", "awesome-openwater"],
+    "badges": ["🌟 Multi-Repo Contributor"]
+  }
+]

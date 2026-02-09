@@ -1,0 +1,23 @@
+[
+  {
+    "login": "top-contributor",
+    "avatar": "https://avatars.githubusercontent.com/u/12345?v=4",
+    "profile": "https://github.com/top-contributor",
+    "contributions": 1234,
+    "repos": ["OpenLIFU-python", "openwater-docs", "openwater-community", "openwater-commons", "OpenMOTION-console"]
+  },
+  {
+    "login": "hardware-specialist",
+    "avatar": "https://avatars.githubusercontent.com/u/23456?v=4",
+    "profile": "https://github.com/hardware-specialist",
+    "contributions": 987,
+    "repos": ["opw_neuromod_hw", "opw_bloodflow_hw", "OpenMOTION-sensor"]
+  },
+  {
+    "login": "docs-hero",
+    "avatar": "https://avatars.githubusercontent.com/u/34567?v=4",
+    "profile": "https://github.com/docs-hero",
+    "contributions": 765,
+    "repos": ["openwater-docs", "awesome-openwater", "openwater-community"]
+  }
+]
