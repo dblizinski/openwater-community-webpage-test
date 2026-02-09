@@ -58,11 +58,30 @@ This repository contains the refactored Openwater community website with dynamic
 - ✅ Progress tracking with celebration on completion
 - ✅ State management with getState() and resetProgress() methods
 
+### ✅ Phase 5: GitHub Org Access Automation (COMPLETE)
+**Completed:** 2025-02-09
+
+**Implemented:**
+- ✅ GitHub Actions workflow for automated issue responses
+- ✅ Issue template for standardized access requests (`.github/ISSUE_TEMPLATE/org-access-request.yml`)
+- ✅ Automated validation of GitHub usernames
+- ✅ Welcome comment with pathway-specific resources
+- ✅ Discord webhook integration (optional)
+- ✅ Maintainer documentation (`docs/MAINTAINERS-ORG-ACCESS.md`)
+- ✅ API integration guide (`docs/API-INTEGRATION.md`)
+- ✅ Netlify serverless function (`netlify/functions/submit-org-access.js`)
+- ✅ Form submission with fallback to manual issue creation
+- ✅ Rate limiting and input validation
+- ✅ Error handling with user-friendly messages
+
+### 🔄 Phase 6: Testing & Optimization (NEXT)
+- Cross-browser testing
+- Accessibility audit
+- Performance optimization
+- Documentation review
+
 ### 📋 Upcoming Phases
-- Phase 4: Interactive onboarding wizard
-- Phase 5: GitHub org access automation
-- Phase 6: Testing & polish
-- Phase 7: Documentation updates
+- Phase 7: Update related repositories
 - Phase 8: Launch & monitoring
 
 ## 🏗️ Architecture
@@ -89,22 +108,33 @@ This repository contains the refactored Openwater community website with dynamic
 ```
 openwater-community/
 ├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── config.yml                # Issue template configuration
+│   │   └── org-access-request.yml    # Organization access request template
 │   └── workflows/
-│       └── update-stats.yml          # Scheduled data refresh (every 6 hours)
+│       ├── update-stats.yml          # Scheduled data refresh (every 6 hours)
+│       └── org-access-automation.yml # Automated org access workflow
 ├── data/                             # Pre-fetched static data
 │   ├── github-stats.json
 │   ├── repos.json
 │   ├── recent-activity.json
 │   ├── activity-feed.json
 │   └── contributor-leaderboard.json
+├── docs/                             # Documentation
+│   ├── MAINTAINERS-ORG-ACCESS.md     # Maintainer guide for org access
+│   └── API-INTEGRATION.md            # API integration guide
 ├── js/
 │   ├── modules/
 │   │   ├── cache-manager.js          # localStorage caching with TTL
 │   │   ├── github-stats.js           # GitHub API integration
 │   │   ├── activity-feed.js          # Activity feed display
 │   │   ├── contributor-board.js      # Contributor leaderboard
-│   │   └── discord-widget.js         # Discord integration
+│   │   ├── discord-widget.js         # Discord integration
+│   │   └── onboarding-flow.js        # Interactive onboarding wizard
 │   └── main.js                       # Module initialization
+├── netlify/
+│   └── functions/
+│       └── submit-org-access.js      # Serverless function for form submission
 ├── scripts/
 │   ├── fetch-activity.js             # Fetches commits, PRs, issues
 │   └── fetch-contributors.js         # Aggregates contributor data
@@ -113,8 +143,14 @@ openwater-community/
 │   ├── researchers.html
 │   ├── clinicians.html
 │   └── community-enhanced.html
+├── get-started.html                  # Central onboarding hub (Phase 3)
+├── researchers.html                  # Researcher pathway page (Phase 3)
+├── clinicians.html                   # Clinician pathway page (Phase 3)
+├── community.html                    # Enhanced community page (Phase 3)
 ├── test-github-stats.html            # Test page for Phase 1
 ├── test-phase2.html                  # Test page for Phase 2
+├── netlify.toml                      # Netlify configuration
+├── package.json                      # Node dependencies
 └── README.md                         # This file
 ```
 

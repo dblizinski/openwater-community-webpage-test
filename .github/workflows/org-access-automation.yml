@@ -1,0 +1,248 @@
+name: GitHub Org Access Automation
+
+on:
+  issues:
+    types: [opened, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  process-access-request:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'org-access-request')) ||
+      github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get issue details
+        id: issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.payload.issue?.number || ${{ inputs.issue_number }};
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber
+            });
+
+            core.setOutput('issue_number', issueNumber);
+            core.setOutput('issue_title', issue.title);
+            core.setOutput('issue_body', issue.body);
+            core.setOutput('issue_author', issue.user.login);
+
+            return issue;
+
+      - name: Parse request data
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `${{ steps.issue.outputs.issue_body }}`;
+
+            // Extract GitHub username
+            const usernameMatch = body.match(/GitHub Username[:\s]*`?@?([a-zA-Z0-9-]+)`?/i);
+            const githubUsername = usernameMatch ? usernameMatch[1] : null;
+
+            // Extract pathway
+            const pathwayMatch = body.match(/Pathway[:\s]*(Developer|Researcher|Clinician)/i);
+            const pathway = pathwayMatch ? pathwayMatch[1] : 'Not specified';
+
+            // Extract areas of interest
+            const interestsMatch = body.match(/Areas of Interest[:\s]*(.+?)(?:\n\n|$)/is);
+            const interests = interestsMatch ? interestsMatch[1].trim() : 'Not specified';
+
+            core.setOutput('github_username', githubUsername);
+            core.setOutput('pathway', pathway);
+            core.setOutput('interests', interests);
+
+            console.log('Parsed data:', { githubUsername, pathway, interests });
+
+      - name: Validate request
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const username = `${{ steps.parse.outputs.github_username }}`;
+
+            if (!username) {
+              core.setOutput('is_valid', 'false');
+              core.setOutput('error_message', 'No GitHub username found in request');
+              return false;
+            }
+
+            // Check if user exists on GitHub
+            try {
+              await github.rest.users.getByUsername({ username });
+              core.setOutput('is_valid', 'true');
+              return true;
+            } catch (error) {
+              core.setOutput('is_valid', 'false');
+              core.setOutput('error_message', `GitHub user @${username} not found`);
+              return false;
+            }
+
+      - name: Post welcome comment (if valid)
+        if: steps.validate.outputs.is_valid == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const username = `${{ steps.parse.outputs.github_username }}`;
+            const pathway = `${{ steps.parse.outputs.pathway }}`;
+            const issueNumber = ${{ steps.issue.outputs.issue_number }};
+
+            const welcomeComment = `
+            ## 🎉 Welcome to Openwater, @${username}!
+
+            Thank you for your interest in joining the Openwater community as a **${pathway}**!
+
+            ### ✅ Next Steps
+
+            1. **Organization Invitation**: A maintainer will review your request and send you an invitation to the \`openwaterhealth\` GitHub organization within 24 hours.
+            2. **Join Discord**: If you haven't already, join our [Discord community](https://discord.gg/openwater) to connect with other contributors.
+            3. **Review Guidelines**: Please read our [Contribution Guidelines](https://github.com/openwaterhealth/.github/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/openwaterhealth/.github/blob/main/CODE_OF_CONDUCT.md).
+            4. **Get Started**: Check out our [Getting Started Guide](https://openwaterhealth.github.io/openwater-community/get-started.html) for pathway-specific resources.
+
+            ### 📚 Resources for ${pathway}s
+
+            ${pathway === 'Developer' ? `
+            - Browse [Good First Issues](https://github.com/search?q=org%3Aopenwaterhealth+label%3A%22good+first+issue%22+state%3Aopen&type=issues)
+            - Check out our [Developer Documentation](https://docs.openwater.health)
+            - Join the \`#dev-help\` channel on Discord
+            ` : ''}
+            ${pathway === 'Researcher' ? `
+            - Explore the [Model Commons](https://openwaterhealth.github.io/openwater-community/model-commons.html)
+            - Review [Research Collaboration Guidelines](https://github.com/openwaterhealth/openwater-commons)
+            - Join the \`#research\` channel on Discord
+            ` : ''}
+            ${pathway === 'Clinician' ? `
+            - Review [Clinical Engagement Guidelines](https://github.com/openwaterhealth/openwater-commons)
+            - Learn about [Clinical Studies](https://openwaterhealth.github.io/openwater-community/clinicians.html#clinical-studies)
+            - Join the \`#clinical\` channel on Discord
+            ` : ''}
+
+            ### 🤝 What to Expect
+
+            - **Response Time**: A maintainer will review this request within 24 hours during business days
+            - **Invitation Email**: You'll receive an email from GitHub with your organization invitation
+            - **Onboarding Call**: Optional - [Schedule a call](https://meetings.hubspot.com/openwater) with our team
+
+            ### 📧 Questions?
+
+            Feel free to comment on this issue if you have any questions. You can also reach us at community@openwater.health.
+
+            ---
+
+            **Maintainers:** Please review and invite @${username} to the organization. Use the \`/invite @${username}\` command or manually add them via [Organization Settings](https://github.com/orgs/openwaterhealth/people).
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: welcomeComment
+            });
+
+            // Add label to track status
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['pending-review', pathway.toLowerCase()]
+            });
+
+      - name: Post error comment (if invalid)
+        if: steps.validate.outputs.is_valid == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = ${{ steps.issue.outputs.issue_number }};
+            const errorMessage = `${{ steps.validate.outputs.error_message }}`;
+
+            const errorComment = `
+            ## ⚠️ Request Validation Failed
+
+            **Error:** ${errorMessage}
+
+            ### 🔧 How to Fix
+
+            Please update your request with a valid GitHub username. The username should:
+            - Exist on GitHub
+            - Not include the \`@\` symbol in the issue body (we'll add it automatically)
+            - Match your actual GitHub account name
+
+            ### 📝 Request Format
+
+            Please ensure your request includes:
+            - **GitHub Username**: your-username
+            - **Pathway**: Developer, Researcher, or Clinician
+            - **Areas of Interest**: What you'd like to contribute to
+            - **Brief Introduction**: Tell us about yourself
+
+            Once you've updated the issue, a maintainer will review your request.
+
+            If you need help, please comment on this issue or email community@openwater.health.
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: errorComment
+            });
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['needs-correction']
+            });
+
+      - name: Notify Discord (if configured)
+        if: steps.validate.outputs.is_valid == 'true' && vars.DISCORD_WEBHOOK_URL != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const username = `${{ steps.parse.outputs.github_username }}`;
+            const pathway = `${{ steps.parse.outputs.pathway }}`;
+            const issueNumber = ${{ steps.issue.outputs.issue_number }};
+            const issueUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/issues/${issueNumber}`;
+
+            const discordPayload = {
+              content: `🆕 **New Organization Access Request**`,
+              embeds: [{
+                title: `Access Request from @${username}`,
+                description: `**Pathway:** ${pathway}\n**Issue:** [#${issueNumber}](${issueUrl})`,
+                color: 0x0891B2,
+                fields: [
+                  {
+                    name: 'Action Required',
+                    value: 'A maintainer needs to review and invite this user to the organization.',
+                    inline: false
+                  }
+                ],
+                timestamp: new Date().toISOString()
+              }]
+            };
+
+            try {
+              await fetch(process.env.DISCORD_WEBHOOK_URL || '', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(discordPayload)
+              });
+              console.log('Discord notification sent');
+            } catch (error) {
+              console.error('Failed to send Discord notification:', error);
+            }

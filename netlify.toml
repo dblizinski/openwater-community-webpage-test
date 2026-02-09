@@ -1,0 +1,78 @@
+# Netlify Configuration for Openwater Community Website
+
+[build]
+  # Build command (none needed for static site)
+  command = ""
+  # Directory to publish
+  publish = "."
+  # Functions directory
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirects for cleaner API URLs
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# CORS headers for API endpoints
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+# Security headers for the website
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Cache static assets
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML pages - shorter cache for updates
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+# Development environment
+[context.deploy-preview]
+  command = ""
+  [context.deploy-preview.environment]
+    NODE_ENV = "development"
+
+# Production environment
+[context.production]
+  command = ""
+  [context.production.environment]
+    NODE_ENV = "production"
+
+# Local development with Netlify Dev
+[dev]
+  command = ""
+  port = 8888
+  targetPort = 8888
+  autoLaunch = true

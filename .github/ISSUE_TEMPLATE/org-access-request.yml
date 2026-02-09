@@ -1,0 +1,98 @@
+name: 🔑 Organization Access Request
+description: Request access to the Openwater GitHub organization
+title: "[Access Request] "
+labels: ["org-access-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 👋 Welcome to Openwater!
+
+        Thank you for your interest in joining our open-source community. Please fill out this form to request access to the `openwaterhealth` GitHub organization.
+
+        **Processing Time:** Requests are typically reviewed within 24 hours during business days.
+
+  - type: input
+    id: github-username
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username (without the @ symbol)
+      placeholder: "your-username"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: pathway
+    attributes:
+      label: Primary Pathway
+      description: Which contributor pathway best describes your interests?
+      options:
+        - Developer
+        - Researcher
+        - Clinician
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: interests
+    attributes:
+      label: Areas of Interest
+      description: What would you like to contribute to? (Select all that apply)
+      options:
+        - label: Software Development (Python, JavaScript, etc.)
+        - label: Hardware Development (Electronics, CAD, etc.)
+        - label: Documentation (Technical writing, tutorials)
+        - label: Testing & QA (Bug testing, quality assurance)
+        - label: Research (Studies, publications, data analysis)
+        - label: Clinical Feedback (Clinical applications, user testing)
+        - label: Community (Events, outreach, support)
+        - label: Other (Please specify in introduction below)
+
+  - type: textarea
+    id: introduction
+    attributes:
+      label: Brief Introduction
+      description: Tell us about yourself and why you're interested in Openwater
+      placeholder: |
+        Example:
+        - Your background (e.g., software engineer, neuroscience researcher, etc.)
+        - How you found Openwater
+        - What you hope to contribute
+        - Any relevant experience or skills
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Acknowledgements
+      description: Please confirm you've read and agree to the following
+      options:
+        - label: I have read and agree to follow the [Code of Conduct](https://github.com/openwaterhealth/.github/blob/main/CODE_OF_CONDUCT.md)
+          required: true
+        - label: I have read the [Contribution Guidelines](https://github.com/openwaterhealth/.github/blob/main/CONTRIBUTING.md)
+          required: true
+        - label: I understand this is an open-source project and contributions are voluntary
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        ### What Happens Next?
+
+        1. **Automated Response**: You'll receive an automated comment with next steps and resources
+        2. **Maintainer Review**: A maintainer will review your request within 24 hours
+        3. **Organization Invitation**: You'll receive an email invitation to join the GitHub organization
+        4. **Get Started**: Once you've accepted, check out our [Getting Started Guide](https://openwaterhealth.github.io/openwater-community/get-started.html)
+
+        ### Need Help?
+
+        - Join our [Discord community](https://discord.gg/openwater)
+        - Email us at community@openwater.health
+        - Schedule an [onboarding call](https://meetings.hubspot.com/openwater)
+
+        Thank you for joining the Openwater community! 🔬

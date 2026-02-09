@@ -420,7 +420,7 @@ export default class OnboardingFlow {
      * Handle GitHub form submission
      * @param {Event} e - Submit event
      */
-    handleGitHubFormSubmit(e) {
+    async handleGitHubFormSubmit(e) {
         const formData = new FormData(this.elements.githubForm);
         const interests = Array.from(formData.getAll('interest'));
 
@@ -435,41 +435,137 @@ export default class OnboardingFlow {
 
         console.log('📝 GitHub Access Request Submitted:', data);
 
-        // Show success message
         const successMsg = document.getElementById('form-success');
-        if (successMsg) {
-            successMsg.classList.add('show');
-            successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
+        const submitButton = this.elements.githubForm.querySelector('button[type="submit"]');
 
-        // Mark step 3 as complete (GitHub access requested)
-        this.completeStep(3);
-
-        // Clear saved form data
-        this.state.formData = {};
-        this.saveProgress();
-
-        // Reset form
-        this.elements.githubForm.reset();
-
-        // Re-select the pathway in the form
-        if (this.state.selectedPathway && this.elements.pathwaySelect) {
-            this.elements.pathwaySelect.value = this.state.selectedPathway;
-        }
-
-        // Hide success message after 7 seconds
-        setTimeout(() => {
-            if (successMsg) {
-                successMsg.classList.remove('show');
+        try {
+            // Disable submit button
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
             }
-        }, 7000);
 
-        // In Phase 5, this would:
-        // - Create a GitHub issue in the .github repository
-        // - Send data to backend API
-        // - Trigger automated GitHub org invitation workflow
-        // - Send confirmation email
-        // - Post to Discord webhook
+            // Try to submit via API
+            const result = await this.submitToAPI(data);
+
+            if (result.success) {
+                // Success! Show success message with issue link
+                if (successMsg) {
+                    successMsg.innerHTML = `
+                        ✅ Your request has been submitted successfully!
+                        <br><br>
+                        <strong>Issue #${result.issueNumber}</strong> has been created.
+                        <a href="${result.issueUrl}" target="_blank" style="color: #0891B2; text-decoration: underline;">
+                            View your request on GitHub →
+                        </a>
+                        <br><br>
+                        A maintainer will review your request within 24 hours.
+                    `;
+                    successMsg.classList.add('show');
+                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
+                // Mark step 3 as complete (GitHub access requested)
+                this.completeStep(3);
+
+                // Clear saved form data
+                this.state.formData = {};
+                this.saveProgress();
+
+                // Reset form
+                this.elements.githubForm.reset();
+
+                // Re-select the pathway in the form
+                if (this.state.selectedPathway && this.elements.pathwaySelect) {
+                    this.elements.pathwaySelect.value = this.state.selectedPathway;
+                }
+
+                // Hide success message after 10 seconds
+                setTimeout(() => {
+                    if (successMsg) {
+                        successMsg.classList.remove('show');
+                    }
+                }, 10000);
+
+                console.log('✅ Issue created:', result.issueUrl);
+            } else {
+                throw new Error(result.error || 'Submission failed');
+            }
+
+        } catch (error) {
+            console.error('Error submitting form:', error);
+
+            // Show error message with fallback option
+            if (successMsg) {
+                successMsg.innerHTML = `
+                    ⚠️ ${error.message || 'Could not submit automatically.'}
+                    <br><br>
+                    <strong>Please create an issue manually:</strong>
+                    <br>
+                    <a href="https://github.com/openwaterhealth/openwater-community/issues/new?template=org-access-request.yml&title=[Access Request] ${encodeURIComponent(data.githubUsername)}"
+                       target="_blank"
+                       class="btn btn-primary"
+                       style="display: inline-block; margin-top: 10px; background: #0891B2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px;">
+                        Create Issue on GitHub →
+                    </a>
+                `;
+                successMsg.style.background = '#FFF3CD';
+                successMsg.style.borderColor = '#FFC107';
+                successMsg.style.color = '#664D03';
+                successMsg.classList.add('show');
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Don't reset form so user can try again or use manual method
+        } finally {
+            // Re-enable submit button
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Access Request';
+            }
+        }
+    }
+
+    /**
+     * Submit org access request to API
+     * @param {Object} data - Form data
+     * @returns {Promise<Object>} API response
+     */
+    async submitToAPI(data) {
+        // API endpoint - will use Netlify Functions if deployed on Netlify
+        // Falls back to manual issue creation if API is not available
+        const apiEndpoint = '/.netlify/functions/submit-org-access';
+
+        try {
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || `HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            return result;
+
+        } catch (error) {
+            // Check if it's a network error or API not available
+            if (error.message.includes('fetch') || error.message.includes('404')) {
+                console.log('API endpoint not available, falling back to manual issue creation');
+                return {
+                    success: false,
+                    error: 'API not available. Please use the manual issue creation link below.',
+                    fallbackUrl: `https://github.com/openwaterhealth/openwater-community/issues/new?template=org-access-request.yml`
+                };
+            }
+
+            throw error;
+        }
     }
 
     /**

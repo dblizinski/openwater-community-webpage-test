@@ -1,0 +1,36 @@
+{
+  "name": "openwater-community-website",
+  "version": "2.0.0",
+  "description": "Openwater open-source community website with dynamic features and pathway-driven onboarding",
+  "main": "js/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site - no build needed'",
+    "test": "echo 'No tests yet'",
+    "deploy": "netlify deploy --prod",
+    "fetch-data": "node scripts/fetch-activity.js && node scripts/fetch-contributors.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openwaterhealth/openwater-community.git"
+  },
+  "keywords": [
+    "openwater",
+    "open-source",
+    "medical-devices",
+    "community",
+    "neuroscience"
+  ],
+  "author": "Openwater Community",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

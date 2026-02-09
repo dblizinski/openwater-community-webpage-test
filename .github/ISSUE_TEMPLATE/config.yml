@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Discord Community
+    url: https://discord.gg/openwater
+    about: Join our Discord server for questions and real-time support
+  - name: 📚 Documentation
+    url: https://docs.openwater.health
+    about: Read our comprehensive documentation and guides
+  - name: 🎯 Get Started Guide
+    url: https://openwaterhealth.github.io/openwater-community/get-started.html
+    about: New to Openwater? Start here!
+  - name: 📧 Email Support
+    url: mailto:community@openwater.health
+    about: Email us for private inquiries
