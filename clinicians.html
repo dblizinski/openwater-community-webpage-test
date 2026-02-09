@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinicians - Openwater</title>
+    <style>
+        :root {
+            --deep-navy: #0A2540;
+            --ocean-blue: #164E63;
+            --primary-teal: #0891B2;
+            --bright-cyan: #06B6D4;
+            --aqua-light: #22D3EE;
+            --light-bg: #F0F9FF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+            --error-red: #EF4444;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-teal);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero .container {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        button, .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--bright-cyan);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--aqua-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--deep-navy);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--deep-navy);
+        }
+
+        button:focus {
+            outline: 2px solid var(--primary-teal);
+            outline-offset: 2px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--bright-cyan));
+            border-radius: 2px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+            border-color: var(--bright-cyan);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        .card ol {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .card ol li {
+            counter-increment: step-counter;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .card ol li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            background: var(--primary-teal);
+            color: var(--white);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Clinical Overview Section */
+        .clinical-overview {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .clinical-overview h3 {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .clinical-overview h4 {
+            color: var(--deep-navy);
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .clinical-overview p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .clinical-overview ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .clinical-overview ul li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .clinical-overview ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--bright-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* Safety Callout */
+        .safety-callout {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .safety-callout h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .safety-callout p {
+            color: #78350f;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Checkbox Grid */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            button, .btn {
+                width: 100%;
+            }
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            gap: 10px;
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-teal);
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-teal);
+            cursor: pointer;
+        }
+
+        /* Step Process */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .step-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .step-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--bright-cyan));
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .step-box h3 {
+            color: var(--deep-navy);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .step-box p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .step-box button {
+            width: 100%;
+        }
+
+        /* Form Section */
+        .form-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .form-wrapper h3 {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-teal);
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+            border-top-color: var(--bright-cyan);
+        }
+
+        .resource-card h3 {
+            color: var(--deep-navy);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resource-card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .resource-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-card ul li {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .resource-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        .resource-card a {
+            color: var(--primary-teal);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .resource-card a:hover {
+            color: var(--bright-cyan);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+        }
+
+        .cta-section h2::after {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-navy);
+            color: var(--white);
+            padding: 60px 20px 20px;
+            text-align: center;
+        }
+
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--bright-cyan);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--bright-cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Placeholder Content */
+        .placeholder {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 0.9rem;
+        }
+
+        /* Icon Styles */
+        .icon-lg {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #155724;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">🔬 Openwater</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#developers">Developers</a></li>
+                <li><a href="#get-started">Get Started</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#model-commons">Model Commons</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Shape the Future of Medical Technology</h1>
+            <p>Your clinical expertise is essential to building safe, effective, and practical medical devices that serve real patient needs</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Schedule Clinical Consultation</button>
+                <button class="btn btn-outline">View Clinical Resources</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Clinical Applications -->
+    <section id="clinical-applications">
+        <div class="container">
+            <h2>Clinical Applications</h2>
+
+            <div class="clinical-overview">
+                <h3>🏥 Technology Overview for Clinicians</h3>
+                <p>Openwater develops open-source platforms for medical imaging and neuromodulation designed with clinical practice in mind. Our technology addresses real clinical needs while prioritizing patient safety, ease of use, and regulatory compliance.</p>
+
+                <h4>Core Clinical Platforms</h4>
+                <ul>
+                    <li><strong>OpenLIFU:</strong> Focused ultrasound for non-invasive brain imaging and therapy
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Depression and anxiety treatment</li>
+                            <li>Essential tremor management</li>
+                            <li>Tumor ablation and thermal therapy</li>
+                            <li>Blood-brain barrier opening for drug delivery</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 15px;"><strong>OpenMOTION:</strong> Precision motion tracking for clinical applications
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Rehabilitation monitoring and assessment</li>
+                            <li>Surgical guidance and accuracy</li>
+                            <li>Movement disorder assessment and tracking</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><span class="card-icon">✅</span> Clinical Benefits</h3>
+                    <ul>
+                        <li>Non-invasive or minimally invasive procedures</li>
+                        <li>Real-time feedback and monitoring</li>
+                        <li>Personalized treatment protocols</li>
+                        <li>Cost-effective compared to traditional options</li>
+                        <li>Open-source = transparent and reproducible</li>
+                        <li>Evidence-based and clinically validated</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🛡️</span> Patient Safety</h3>
+                    <p>Safety is our top priority. All Openwater platforms undergo rigorous safety testing and validation:</p>
+                    <ul>
+                        <li>Comprehensive safety testing protocols</li>
+                        <li>Known contraindications documentation</li>
+                        <li>Adverse event reporting and tracking</li>
+                        <li>Quality management system compliance</li>
+                        <li>Regular safety audits and updates</li>
+                        <li>Patient informed consent support</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">⚖️</span> Regulatory Status</h3>
+                    <div class="placeholder">
+                        <!-- TODO: PLACEHOLDER - Replace with actual regulatory content -->
+                        <strong>Content needed from stakeholders:</strong> Regulatory status and FDA pathway information (300 words)
+                    </div>
+                    <ul>
+                        <li>Current FDA classification and status</li>
+                        <li>CE marking and international approvals</li>
+                        <li>Active clinical trial phases</li>
+                        <li>Intended use statements</li>
+                        <li>Regulatory disclaimer and limitations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="safety-callout">
+                <h4>⚠️ Clinical Use Statement</h4>
+                <p>Openwater technologies are under development. Clinical use may vary by region and regulatory status. Always consult current regulatory guidance and institutional policies before clinical implementation. Patient safety and informed consent are paramount.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Clinical Feedback & Input -->
+    <section id="clinical-feedback">
+        <div class="container">
+            <h2>Clinical Feedback & Input</h2>
+
+            <div class="clinical-overview">
+                <h3>Why Your Input Matters</h3>
+                <div class="placeholder" style="margin-bottom: 20px;">
+                    <!-- TODO: PLACEHOLDER - Replace with clinical engagement guidelines -->
+                    <strong>Content needed from stakeholders:</strong> Clinical engagement guidelines and best practices (500 words)
+                </div>
+                <p>Clinicians provide invaluable perspective that fundamentally shapes device development. Your expertise directly influences how our technology integrates into real clinical workflows:</p>
+                <ul>
+                    <li><strong>Workflow Integration:</strong> Ensure devices seamlessly fit into your clinical practice and improve efficiency</li>
+                    <li><strong>User Interface Design:</strong> Make controls intuitive, safe, and aligned with clinical conventions</li>
+                    <li><strong>Clinical Protocols:</strong> Develop evidence-based treatment protocols and best practices</li>
+                    <li><strong>Safety Monitoring:</strong> Identify potential risks, contraindications, and edge cases</li>
+                    <li><strong>Patient Experience:</strong> Optimize for patient comfort, outcomes, and satisfaction</li>
+                    <li><strong>Training Requirements:</strong> Define necessary training and competency assessment for users</li>
+                </ul>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><span class="card-icon">📋</span> Feedback Collection Process</h3>
+                    <ol>
+                        <li><strong>Surveys & Questionnaires:</strong> Quick feedback on specific features and usability</li>
+                        <li><strong>User Testing Sessions:</strong> Hands-on evaluation and direct interaction with devices</li>
+                        <li><strong>Focus Groups:</strong> Group discussions on clinical needs and implementation strategies</li>
+                        <li><strong>Advisory Board:</strong> Ongoing strategic input and guidance</li>
+                        <li><strong>Discord #clinicians:</strong> Real-time community feedback and discussion</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">👥</span> Clinical Advisory Board</h3>
+                    <p>Join our growing clinical advisory board to provide strategic guidance on development and clinical implementation:</p>
+                    <ul>
+                        <li>Quarterly virtual and in-person meetings</li>
+                        <li>Review and influence development roadmap</li>
+                        <li>Advise on clinical priorities and use cases</li>
+                        <li>Guide regulatory and compliance strategy</li>
+                        <li>Community recognition and leadership</li>
+                    </ul>
+                    <button class="btn btn-primary">Apply to Advisory Board</button>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🗳️</span> Use Case Prioritization</h3>
+                    <p>Help us decide which clinical applications and features to develop next based on real clinical needs:</p>
+                    <ul>
+                        <li>Vote on proposed clinical use cases</li>
+                        <li>Suggest new applications from your practice</li>
+                        <li>Rank clinical priorities and pain points</li>
+                        <li>Guide feature development and improvements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Clinical Studies & Trials -->
+    <section id="clinical-studies">
+        <div class="container">
+            <h2>Clinical Studies & Trials</h2>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><span class="card-icon">📊</span> Active Clinical Studies</h3>
+                    <div class="placeholder">
+                        <!-- TODO: PLACEHOLDER - Replace with active studies list -->
+                        <strong>Content needed from stakeholders:</strong> Current active clinical studies and recruitment status
+                    </div>
+                    <p>Currently recruiting clinicians and sites for:</p>
+                    <ul>
+                        <li>Low-intensity focused ultrasound for treatment-resistant depression (Phase II)</li>
+                        <li>Motion tracking for Parkinson's disease assessment (Pilot Study)</li>
+                        <li>Portable ultrasound imaging validation and optimization (Feasibility)</li>
+                    </ul>
+                    <button class="btn btn-primary">View All Active Studies</button>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🎯</span> How to Participate</h3>
+                    <h4 style="font-size: 1rem; margin-top: 20px; margin-bottom: 10px;">As Principal Investigator:</h4>
+                    <ol style="margin-bottom: 20px;">
+                        <li>Review study protocols and site requirements</li>
+                        <li>Submit site interest and feasibility form</li>
+                        <li>Complete institutional assessment</li>
+                        <li>Obtain local IRB/ethics approval</li>
+                        <li>Receive training and equipment setup</li>
+                        <li>Enroll and manage patients in study</li>
+                    </ol>
+                    <h4 style="font-size: 1rem; margin-bottom: 10px;">As Site Collaborator:</h4>
+                    <ul>
+                        <li>Support existing PI at your institution</li>
+                        <li>Assist with patient recruitment</li>
+                        <li>Participate in data collection</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">💡</span> Proposing a New Study</h3>
+                    <p>Have a clinical study idea? We provide support for study design and implementation:</p>
+                    <ol>
+                        <li>Submit study concept form with clinical background</li>
+                        <li>Schedule consultation with clinical research team</li>
+                        <li>Develop protocol collaboratively with our team</li>
+                        <li>Access equipment and technical support</li>
+                        <li>Receive IRB/ethics support and templates</li>
+                    </ol>
+                    <button class="btn btn-primary">Propose a Study</button>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div class="clinical-overview">
+                    <h3>📋 IRB & Ethics Support</h3>
+                    <div class="placeholder" style="margin-bottom: 20px;">
+                        <!-- TODO: PLACEHOLDER - Replace with IRB support details -->
+                        <strong>Content needed from stakeholders:</strong> Detailed IRB/ethics board support information
+                    </div>
+                    <p>We provide comprehensive support for institutional review and ethical oversight:</p>
+                    <ul>
+                        <li>Template IRB protocols for rapid approval</li>
+                        <li>Informed consent form templates and guidance</li>
+                        <li>Safety monitoring and adverse event plans</li>
+                        <li>Data privacy and de-identification guidance</li>
+                        <li>Regulatory compliance documentation</li>
+                        <li>Expedited review coordination</li>
+                    </ul>
+                </div>
+
+                <div class="clinical-overview">
+                    <h3>🔒 Patient Consent & Privacy</h3>
+                    <div class="placeholder" style="margin-bottom: 20px;">
+                        <!-- TODO: PLACEHOLDER - Replace with privacy compliance details -->
+                        <strong>Content needed from stakeholders:</strong> HIPAA and privacy compliance framework (technical details)
+                    </div>
+                    <p>Patient privacy and data protection are fundamental to our clinical research:</p>
+                    <ul>
+                        <li>HIPAA-compliant data handling and storage</li>
+                        <li>De-identification protocols and procedures</li>
+                        <li>Patient consent and data sharing templates</li>
+                        <li>Secure data sharing agreements</li>
+                        <li>Privacy impact assessments support</li>
+                        <li>Audit trails and compliance monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Getting Started -->
+    <section id="get-started">
+        <div class="container">
+            <h2>Getting Started as a Clinician</h2>
+
+            <div class="steps-container">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <h3>Complete Interest Survey</h3>
+                    <p>Tell us about your clinical practice, specialty, and interests in Openwater technology</p>
+                    <button class="btn btn-primary">Take Survey</button>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <h3>Schedule Consultation</h3>
+                    <p>Meet with our clinical team to discuss opportunities and alignment with your practice</p>
+                    <button class="btn btn-primary">Schedule Call</button>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <h3>Join Community</h3>
+                    <p>Connect with other clinicians in our Discord #clinicians channel for ongoing discussion</p>
+                    <button class="btn btn-primary">Join Discord</button>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">4</div>
+                    <h3>Access Resources</h3>
+                    <p>Get clinical documentation, protocols, safety data, and technical specifications</p>
+                    <button class="btn btn-primary">View Clinical Resources</button>
+                </div>
+            </div>
+
+            <!-- Clinical Interest Survey Form -->
+            <div class="form-wrapper">
+                <h3>🏥 Clinical Interest Survey</h3>
+                <form id="clinical-form">
+                    <div id="form-success" class="success-message">
+                        Thank you for completing the clinical interest survey! Our clinical team will contact you within 2 business days to discuss opportunities.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="institution">Institution / Organization *</label>
+                        <input type="text" id="institution" name="institution" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialty">Medical Specialty *</label>
+                        <input type="text" id="specialty" name="specialty" placeholder="e.g., Neurology, Psychiatry, Oncology" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Clinical Focus Areas *</label>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="clinical-focus" value="neurology">
+                                Neurology
+                            </label>
+                            <label>
+                                <input type="checkbox" name="clinical-focus" value="psychiatry">
+                                Psychiatry
+                            </label>
+                            <label>
+                                <input type="checkbox" name="clinical-focus" value="oncology">
+                                Oncology
+                            </label>
+                            <label>
+                                <input type="checkbox" name="clinical-focus" value="cardiology">
+                                Cardiology
+                            </label>
+                            <label>
+                                <input type="checkbox" name="clinical-focus" value="rehabilitation">
+                                Rehabilitation
+                            </label>
+                            <label>
+                                <input type="checkbox" name="clinical-focus" value="other">
+                                Other / Multiple Areas
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Areas of Interest *</label>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="interest-areas" value="feedback">
+                                Provide clinical feedback
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest-areas" value="studies">
+                                Participate in clinical studies
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest-areas" value="advisory">
+                                Join advisory board
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest-areas" value="testing">
+                                User testing & evaluation
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Additional Comments or Questions</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="Tell us about your clinical interests or questions..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="newsletter" value="yes">
+                            Subscribe to Openwater clinical updates and webinars
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Clinical Interest Survey</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Clinical Resources -->
+    <section id="clinical-resources">
+        <div class="container">
+            <h2>Clinical Resources</h2>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3><span class="card-icon">📖</span> Clinical Documentation</h3>
+                    <ul>
+                        <li><a href="#">Safety Data Sheets & Technical Specifications</a></li>
+                        <li><a href="#">Clinical Protocol Guidelines</a></li>
+                        <li><a href="#">User Manuals & Device Training</a></li>
+                        <li><a href="#">Best Practices & Clinical Tips</a></li>
+                        <li><a href="#">Troubleshooting Guides</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">⚖️</span> Regulatory & Compliance</h3>
+                    <ul>
+                        <li><a href="#">FDA Status & Submissions</a></li>
+                        <li><a href="#">CE Marking Documentation</a></li>
+                        <li><a href="#">Clinical Trial Results & Publications</a></li>
+                        <li><a href="#">Adverse Event Reporting</a></li>
+                        <li><a href="#">Quality Management Information</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">📋</span> Study Support</h3>
+                    <ul>
+                        <li><a href="#">Active Study Protocols</a></li>
+                        <li><a href="#">IRB-Approved Template Forms</a></li>
+                        <li><a href="#">Informed Consent Templates</a></li>
+                        <li><a href="#">Data Collection Tools</a></li>
+                        <li><a href="#">Regulatory Submission Guides</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">💬</span> Clinical Support</h3>
+                    <p><strong>Clinical Contact:</strong></p>
+                    <p><a href="mailto:clinical@openwater.health">clinical@openwater.health</a></p>
+                    <p><strong>Discord Community:</strong></p>
+                    <p><a href="#">Join #clinicians channel</a></p>
+                    <p><strong>Office Hours:</strong></p>
+                    <p>Tuesdays & Thursdays, 2-4 PM PT</p>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">🏥</span> Clinical Partners</h3>
+                    <p>Collaborate and learn from our network of leading clinical institutions:</p>
+                    <ul>
+                        <li><a href="#">Mayo Clinic</a></li>
+                        <li><a href="#">Stanford Medicine</a></li>
+                        <li><a href="#">Johns Hopkins University</a></li>
+                        <li><a href="#">View full clinical partner network</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">📚</span> Educational Resources</h3>
+                    <ul>
+                        <li><a href="#">Clinical Webinar Recordings</a></li>
+                        <li><a href="#">Journal Articles & Publications</a></li>
+                        <li><a href="#">Device Training Videos</a></li>
+                        <li><a href="#">CME/CEU Credit Information</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Get Involved?</h2>
+            <p>Your clinical expertise can help bring advanced medical technology to patients worldwide</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Schedule Clinical Consultation</button>
+                <button class="btn btn-outline">Take Clinical Interest Survey</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Openwater</h3>
+                    <p>Advancing medical technology through open collaboration and clinical engagement</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Clinical</h3>
+                    <p><a href="#">Clinical Portal</a></p>
+                    <p><a href="#">Clinical Studies</a></p>
+                    <p><a href="#">Clinical Documentation</a></p>
+                    <p><a href="#">Clinical Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <p><a href="#">Discord #clinicians</a></p>
+                    <p><a href="#">GitHub</a></p>
+                    <p><a href="#">Community Guidelines</a></p>
+                    <p><a href="#">Contribute</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <p><a href="#">Blog & News</a></p>
+                    <p><a href="#">Publications</a></p>
+                    <p><a href="#">Press Kit</a></p>
+                    <p><a href="#">Contact</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Openwater. All rights reserved. | <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Terms of Service</a></p>
+                <p style="margin-top: 10px;">Contact: <a href="mailto:clinical@openwater.health" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">clinical@openwater.health</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handler
+        const clinicalForm = document.getElementById('clinical-form');
+
+        if (clinicalForm) {
+            clinicalForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Collect form data
+                const formData = new FormData(clinicalForm);
+
+                // Collect checkboxes
+                const clinicalFocus = Array.from(formData.getAll('clinical-focus'));
+                const interestAreas = Array.from(formData.getAll('interest-areas'));
+
+                const data = {
+                    name: formData.get('name'),
+                    institution: formData.get('institution'),
+                    specialty: formData.get('specialty'),
+                    email: formData.get('email'),
+                    clinicalFocus: clinicalFocus,
+                    interestAreas: interestAreas,
+                    comments: formData.get('comments'),
+                    newsletter: formData.get('newsletter') ? true : false
+                };
+
+                // Log form data (in production, this would send to a backend service)
+                console.log('Clinical Interest Survey Submitted:', data);
+
+                // Show success message
+                const successMsg = document.getElementById('form-success');
+                successMsg.classList.add('show');
+
+                // Reset form
+                clinicalForm.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

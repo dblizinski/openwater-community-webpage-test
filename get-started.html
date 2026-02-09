@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - Openwater</title>
+    <style>
+        :root {
+            --deep-navy: #0A2540;
+            --ocean-blue: #164E63;
+            --primary-teal: #0891B2;
+            --bright-cyan: #06B6D4;
+            --aqua-light: #22D3EE;
+            --light-bg: #F0F9FF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+            --error-red: #EF4444;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-teal);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero .container {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        button, .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--bright-cyan);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--aqua-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--deep-navy);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--deep-navy);
+        }
+
+        button:focus {
+            outline: 2px solid var(--primary-teal);
+            outline-offset: 2px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--bright-cyan));
+            border-radius: 2px;
+        }
+
+        /* Pathway Selector Cards */
+        .pathway-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pathway-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .pathway-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+        }
+
+        .pathway-card.selected {
+            border-color: var(--bright-cyan);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(34, 211, 238, 0.05));
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.2);
+        }
+
+        .pathway-checkmark {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: var(--bright-cyan);
+            color: var(--white);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .pathway-card.selected .pathway-checkmark {
+            display: flex;
+        }
+
+        .pathway-card h3 {
+            font-size: 1.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pathway-icon {
+            font-size: 2rem;
+        }
+
+        .pathway-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .pathway-card button {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .pathway-card.selected button {
+            background: var(--bright-cyan);
+            color: var(--white);
+        }
+
+        /* Sub-pathways (hidden by default) */
+        .sub-pathways {
+            display: none;
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .pathway-card.selected .sub-pathways {
+            display: block;
+        }
+
+        .sub-pathways h4 {
+            color: var(--deep-navy);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .sub-pathways ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sub-pathways li {
+            color: var(--text-secondary);
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .sub-pathways li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        /* Onboarding Checklist */
+        .checklist-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-teal), var(--bright-cyan));
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .checklist-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .checklist-item {
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item.completed {
+            background: #d4edda;
+            border-left: 4px solid var(--success-green);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--primary-teal);
+            flex-shrink: 0;
+        }
+
+        .checklist-text {
+            flex: 1;
+        }
+
+        .checklist-text h4 {
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .checklist-text p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Quick Actions Bar (Sticky Footer) */
+        .quick-actions-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 20px;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+            z-index: 99;
+        }
+
+        .quick-actions-bar .container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .quick-actions-bar button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .quick-actions-bar .btn-primary {
+            background: var(--bright-cyan);
+        }
+
+        .quick-actions-bar .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        /* Card Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+            border-color: var(--bright-cyan);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        .card ol {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .card ol li {
+            counter-increment: step-counter;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .card ol li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            background: var(--primary-teal);
+            color: var(--white);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Pathway Specific Content */
+        .pathway-content {
+            display: none;
+        }
+
+        .pathway-content.active {
+            display: block;
+        }
+
+        .pathway-content h3 {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .pathway-content ol {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .pathway-content ol li {
+            counter-increment: step-counter;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .pathway-content ol li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            background: var(--primary-teal);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: var(--white);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-teal);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            transition: background 0.3s;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .faq-question:hover {
+            background: var(--light-bg);
+        }
+
+        .faq-toggle {
+            font-size: 1.3rem;
+            color: var(--primary-teal);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.expanded .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 20px 20px;
+            color: var(--text-secondary);
+            background: var(--light-bg);
+            line-height: 1.7;
+        }
+
+        .faq-item.expanded .faq-answer {
+            display: block;
+        }
+
+        /* Form Styles */
+        .form-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .form-wrapper h3 {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-teal);
+            cursor: pointer;
+        }
+
+        .form-wrapper button {
+            width: 100%;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #155724;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+        }
+
+        .cta-section h2::after {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-navy);
+            color: var(--white);
+            padding: 60px 20px 20px;
+            text-align: center;
+        }
+
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--bright-cyan);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--bright-cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Quiz Link */
+        .quiz-link {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: 8px;
+        }
+
+        .quiz-link a {
+            color: var(--primary-teal);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .quiz-link a:hover {
+            color: var(--bright-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+
+            .quick-actions-bar .container {
+                flex-direction: column;
+            }
+
+            .quick-actions-bar button {
+                width: 100%;
+            }
+
+            button, .btn {
+                width: 100%;
+            }
+
+            .pathway-card {
+                padding: 30px 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">🔬 Openwater</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#developers">Developers</a></li>
+                <li><a href="#get-started">Get Started</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#model-commons">Model Commons</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Start Contributing to Openwater</h1>
+            <p>Join 2,000+ developers, researchers, and clinicians building open-source medical devices that change lives</p>
+        </div>
+    </section>
+
+    <!-- Pathway Selector Section -->
+    <section id="pathway-selector">
+        <div class="container">
+            <h2>Choose Your Pathway</h2>
+
+            <div class="pathway-selector">
+                <!-- Developer Pathway -->
+                <div class="pathway-card" data-pathway="developer">
+                    <div class="pathway-checkmark">✓</div>
+                    <h3><span class="pathway-icon">👨‍💻</span> Developer</h3>
+                    <p>Contribute code, hardware designs, documentation, or testing to advance our open-source platforms</p>
+                    <button class="btn btn-secondary">Select Developer Path →</button>
+
+                    <div class="sub-pathways">
+                        <h4>Developer Sub-Paths:</h4>
+                        <ul>
+                            <li>Software Development</li>
+                            <li>Hardware Development</li>
+                            <li>Documentation</li>
+                            <li>QA & Testing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Researcher Pathway -->
+                <div class="pathway-card" data-pathway="researcher">
+                    <div class="pathway-checkmark">✓</div>
+                    <h3><span class="pathway-icon">🔬</span> Researcher</h3>
+                    <p>Collaborate on studies, publish research, access datasets, and advance medical science</p>
+                    <button class="btn btn-secondary">Select Researcher Path →</button>
+
+                    <div class="sub-pathways">
+                        <h4>Research Opportunities:</h4>
+                        <ul>
+                            <li>Joint Research Studies</li>
+                            <li>Platform Access</li>
+                            <li>Model Commons</li>
+                            <li>Data Collaboration</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Clinician Pathway -->
+                <div class="pathway-card" data-pathway="clinician">
+                    <div class="pathway-checkmark">✓</div>
+                    <h3><span class="pathway-icon">🏥</span> Clinician</h3>
+                    <p>Provide clinical feedback, participate in trials, advise on applications, and shape medical devices</p>
+                    <button class="btn btn-secondary">Select Clinician Path →</button>
+
+                    <div class="sub-pathways">
+                        <h4>Clinical Contributions:</h4>
+                        <ul>
+                            <li>Clinical Feedback</li>
+                            <li>Trial Participation</li>
+                            <li>Advisory Board</li>
+                            <li>Device Validation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-link">
+                <p>Not sure which path is right for you? <a href="#">Take our 1-minute pathway quiz →</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Onboarding Checklist Section -->
+    <section id="checklist">
+        <div class="container">
+            <h2>Your Onboarding Checklist</h2>
+
+            <div class="checklist-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step1" class="step-checkbox" data-step="1">
+                        <div class="checklist-text">
+                            <h4>Choose Your Pathway</h4>
+                            <p>Select Developer, Researcher, or Clinician pathway above</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step2" class="step-checkbox" data-step="2">
+                        <div class="checklist-text">
+                            <h4>Join Our Community</h4>
+                            <p>Join Discord and connect with fellow contributors</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step3" class="step-checkbox" data-step="3">
+                        <div class="checklist-text">
+                            <h4>Request GitHub Access</h4>
+                            <p>Get access to our repositories and projects</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step4" class="step-checkbox" data-step="4">
+                        <div class="checklist-text">
+                            <h4>Explore Resources</h4>
+                            <p>Review documentation and guides for your pathway</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox" id="step5" class="step-checkbox" data-step="5">
+                        <div class="checklist-text">
+                            <h4>Make Your First Contribution</h4>
+                            <p>Start with a good first issue or beginner-friendly task</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pathway-Specific Quick Start -->
+    <section id="quick-start">
+        <div class="container">
+            <h2>Your Quick Start Guide</h2>
+
+            <!-- Developer Quick Start -->
+            <div class="pathway-content active" id="developer-content">
+                <div class="card">
+                    <h3><span class="card-icon">👨‍💻</span> For Developers</h3>
+                    <ol>
+                        <li><strong>Fork and Clone:</strong> Fork our repository and set up your local development environment</li>
+                        <li><strong>Set Up Dev Environment:</strong> Follow our contributor guide to install dependencies and build from source</li>
+                        <li><strong>Find a Good First Issue:</strong> Browse our GitHub issues labeled "good first issue" or "beginner-friendly"</li>
+                        <li><strong>Make Your Contribution:</strong> Create a feature branch, make your changes, and submit a pull request</li>
+                        <li><strong>Get Code Review:</strong> Engage with maintainers in the review process and refine your contribution</li>
+                    </ol>
+                    <button class="btn btn-primary">View Developer Resources →</button>
+                </div>
+            </div>
+
+            <!-- Researcher Quick Start -->
+            <div class="pathway-content" id="researcher-content">
+                <div class="card">
+                    <h3><span class="card-icon">🔬</span> For Researchers</h3>
+                    <ol>
+                        <li><strong>Review Collaboration Policy:</strong> Understand our research collaboration framework and IP guidelines</li>
+                        <li><strong>Schedule Consultation:</strong> Book a call with our research team to discuss your interests</li>
+                        <li><strong>Access Documentation:</strong> Get technical specs, datasets, and research protocols</li>
+                        <li><strong>Explore Model Commons:</strong> Browse shared datasets and models from our research community</li>
+                        <li><strong>Submit Proposal:</strong> Propose a joint study, validation study, or method development project</li>
+                    </ol>
+                    <button class="btn btn-primary">View Research Resources →</button>
+                </div>
+            </div>
+
+            <!-- Clinician Quick Start -->
+            <div class="pathway-content" id="clinician-content">
+                <div class="card">
+                    <h3><span class="card-icon">🏥</span> For Clinicians</h3>
+                    <ol>
+                        <li><strong>Complete Interest Survey:</strong> Tell us about your clinical practice and interests</li>
+                        <li><strong>Schedule Consultation:</strong> Meet with our clinical team to discuss opportunities</li>
+                        <li><strong>Review Regulatory Info:</strong> Understand clinical status, regulatory pathway, and safety data</li>
+                        <li><strong>Join Advisory Board:</strong> Participate in strategic guidance and development planning</li>
+                        <li><strong>Participate in Studies:</strong> Get involved in clinical trials and feedback opportunities</li>
+                    </ol>
+                    <button class="btn btn-primary">View Clinical Resources →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does GitHub org access take?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Usually within 24 hours. Automated requests are reviewed daily. If you haven't received access within 24 hours, please reach out to our community team at community@openwater.health.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need coding experience to contribute?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Not necessarily! We have opportunities for developers, hardware engineers, technical writers, researchers, and clinicians. We welcome all skill levels and provide mentorship for those new to open source.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I contribute in multiple pathways?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! Many of our contributors work across multiple pathways. For example, some developers also participate in clinical feedback, or researchers contribute documentation. You're welcome to engage in any areas that interest you.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is mentorship available for new contributors?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! We match new contributors with experienced mentors in our Discord community. Our #mentors channel helps pair you with someone who can guide you through your first contributions.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's the time commitment required?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Flexible! Contributions can range from one-off code reviews or feedback to ongoing research collaboration. You decide how much time you can invest. Many contributors start with small tasks and increase involvement over time.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I get recognized for my contributions?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        We recognize contributors through GitHub contributor graphs, our community contributors page, blog features, and citations in academic publications. Active contributors may also be invited to speak at webinars or present at conferences.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Org Access Request Form -->
+    <section id="github-form">
+        <div class="container">
+            <h2>Request GitHub Organization Access</h2>
+
+            <div class="form-wrapper">
+                <h3>GitHub Access Request</h3>
+                <form id="github-access-form">
+                    <div id="form-success" class="success-message">
+                        Your request has been submitted! We'll review it and send you an invitation within 24 hours.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="github-username">GitHub Username *</label>
+                        <input type="text" id="github-username" name="github-username" placeholder="your-github-username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pathway">Selected Pathway *</label>
+                        <select id="pathway" name="pathway" required>
+                            <option value="">Select your pathway</option>
+                            <option value="developer">Developer</option>
+                            <option value="researcher">Researcher</option>
+                            <option value="clinician">Clinician</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Areas of Interest *</label>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="interest" value="software">
+                                Software Development
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest" value="hardware">
+                                Hardware Development
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest" value="documentation">
+                                Documentation
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest" value="testing">
+                                Testing & QA
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest" value="research">
+                                Research
+                            </label>
+                            <label>
+                                <input type="checkbox" name="interest" value="clinical">
+                                Clinical Feedback
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="intro">Brief Introduction *</label>
+                        <textarea id="intro" name="intro" rows="4" placeholder="Tell us a bit about yourself and why you're interested in contributing to Openwater..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="coc" required>
+                            I agree to follow the Openwater Community Guidelines and Code of Conduct
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Access Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Get Started?</h2>
+            <p>Join thousands of contributors building the future of open-source medical technology</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Join Our Discord Community</button>
+                <button class="btn btn-outline">View Our Repositories</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Openwater</h3>
+                    <p>Advancing medical technology through open collaboration and community contributions</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Get Started</h3>
+                    <p><a href="#pathway-selector">Choose Your Pathway</a></p>
+                    <p><a href="#checklist">View Checklist</a></p>
+                    <p><a href="#github-form">Request GitHub Access</a></p>
+                    <p><a href="#faq">View FAQ</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <p><a href="#">Join Discord</a></p>
+                    <p><a href="#">GitHub Organization</a></p>
+                    <p><a href="#">Community Guidelines</a></p>
+                    <p><a href="#">Code of Conduct</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <p><a href="#">Developer Guide</a></p>
+                    <p><a href="#">Research Portal</a></p>
+                    <p><a href="#">Clinical Resources</a></p>
+                    <p><a href="#">Contact</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Openwater. All rights reserved. | <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Terms of Service</a></p>
+                <p style="margin-top: 10px;">Contact: <a href="mailto:community@openwater.health" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">community@openwater.health</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quick Actions Bar (Sticky Footer) -->
+    <div class="quick-actions-bar">
+        <div class="container">
+            <button class="btn btn-primary">Request GitHub Access</button>
+            <button class="btn btn-outline">Join Discord (2,000+ members)</button>
+            <button class="btn btn-outline">View Good First Issues</button>
+            <button class="btn btn-outline">Schedule Onboarding Call</button>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * PHASE 4: Onboarding Flow Enhancement
+         * This module handles interactive functionality for the Get Started page
+         * Future development will expand with:
+         * - Advanced pathway customization
+         * - Progress saving to localStorage
+         * - Pathway-specific recommendations
+         * - Form validation and submission handling
+         */
+
+        // ===== Pathway Selector =====
+        const pathwayCards = document.querySelectorAll('.pathway-card');
+        const pathwayContents = document.querySelectorAll('.pathway-content');
+
+        pathwayCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const pathway = this.getAttribute('data-pathway');
+                selectPathway(pathway);
+            });
+
+            // Also handle button clicks
+            const button = card.querySelector('button');
+            if (button) {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const pathway = card.getAttribute('data-pathway');
+                    selectPathway(pathway);
+                });
+            }
+        });
+
+        function selectPathway(pathway) {
+            // Update card selection state
+            pathwayCards.forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-pathway="${pathway}"]`).classList.add('selected');
+
+            // Update content visibility
+            pathwayContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${pathway}-content`).classList.add('active');
+
+            // Save to localStorage for Phase 4
+            localStorage.setItem('ow_selected_pathway', pathway);
+
+            // Mark first checklist item as complete
+            document.getElementById('step1').checked = true;
+            updateChecklistProgress();
+        }
+
+        // ===== Checklist Progress Tracking =====
+        const checkboxes = document.querySelectorAll('.step-checkbox');
+        const progressBar = document.getElementById('progressBar');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Update visual state
+                this.closest('.checklist-item').classList.toggle('completed');
+
+                // Save progress
+                const step = this.getAttribute('data-step');
+                const isChecked = this.checked;
+                localStorage.setItem(`ow_step_${step}`, isChecked);
+
+                // Update progress bar
+                updateChecklistProgress();
+            });
+        });
+
+        function updateChecklistProgress() {
+            const checkedCount = document.querySelectorAll('.step-checkbox:checked').length;
+            const totalCount = checkboxes.length;
+            const percentage = (checkedCount / totalCount) * 100;
+            progressBar.style.width = percentage + '%';
+        }
+
+        // Load saved progress from localStorage
+        function loadSavedProgress() {
+            checkboxes.forEach(checkbox => {
+                const step = checkbox.getAttribute('data-step');
+                const saved = localStorage.getItem(`ow_step_${step}`);
+                if (saved === 'true') {
+                    checkbox.checked = true;
+                    checkbox.closest('.checklist-item').classList.add('completed');
+                }
+            });
+            updateChecklistProgress();
+
+            // Load saved pathway
+            const savedPathway = localStorage.getItem('ow_selected_pathway');
+            if (savedPathway) {
+                selectPathway(savedPathway);
+            }
+        }
+
+        loadSavedProgress();
+
+        // ===== FAQ Accordion =====
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.closest('.faq-item');
+                faqItem.classList.toggle('expanded');
+            });
+        });
+
+        // ===== GitHub Access Form =====
+        const githubForm = document.getElementById('github-access-form');
+
+        if (githubForm) {
+            githubForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Collect form data
+                const formData = new FormData(githubForm);
+                const interests = Array.from(formData.getAll('interest'));
+
+                const data = {
+                    githubUsername: formData.get('github-username'),
+                    pathway: formData.get('pathway'),
+                    interests: interests,
+                    introduction: formData.get('intro'),
+                    agreedToCoc: formData.get('coc') ? true : false
+                };
+
+                // Log form data (in production, this would send to a backend service)
+                console.log('GitHub Access Request Submitted:', data);
+
+                // Show success message
+                const successMsg = document.getElementById('form-success');
+                successMsg.classList.add('show');
+
+                // Reset form
+                githubForm.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+
+                // In Phase 5, this would:
+                // - Create a GitHub issue in the .github repository
+                // - Add user to Discord with role
+                // - Send confirmation email
+                // - Trigger automated GitHub org invitation
+            });
+        }
+
+        // ===== Smooth Scroll for Anchor Links =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Researchers - Openwater</title>
+    <style>
+        :root {
+            --deep-navy: #0A2540;
+            --ocean-blue: #164E63;
+            --primary-teal: #0891B2;
+            --bright-cyan: #06B6D4;
+            --aqua-light: #22D3EE;
+            --light-bg: #F0F9FF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+            --error-red: #EF4444;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-teal);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero .container {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        button, .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--bright-cyan);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--aqua-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--deep-navy);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--deep-navy);
+        }
+
+        button:focus {
+            outline: 2px solid var(--primary-teal);
+            outline-offset: 2px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--bright-cyan));
+            border-radius: 2px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+            border-color: var(--bright-cyan);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        .card ol {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .card ol li {
+            counter-increment: step-counter;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .card ol li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            background: var(--primary-teal);
+            color: var(--white);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* What is Openwater Section */
+        .tech-overview {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .tech-overview h3 {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .tech-overview p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .tech-overview ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-overview ul li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .tech-overview ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--bright-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            button, .btn {
+                width: 100%;
+            }
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            gap: 10px;
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-teal);
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-teal);
+            cursor: pointer;
+        }
+
+        /* Step Process */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .step-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .step-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--bright-cyan));
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .step-box h3 {
+            color: var(--deep-navy);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .step-box p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .step-box button {
+            width: 100%;
+        }
+
+        /* Form Section */
+        .form-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .form-wrapper h3 {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-teal);
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+            border-top-color: var(--bright-cyan);
+        }
+
+        .resource-card h3 {
+            color: var(--deep-navy);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resource-card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .resource-card a {
+            color: var(--primary-teal);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .resource-card a:hover {
+            color: var(--bright-cyan);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 50%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+        }
+
+        .cta-section h2::after {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-navy);
+            color: var(--white);
+            padding: 60px 20px 20px;
+            text-align: center;
+        }
+
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--bright-cyan);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--bright-cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Placeholder Content */
+        .placeholder {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 0.9rem;
+        }
+
+        /* Icon Styles */
+        .icon-lg {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #155724;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">🔬 Openwater</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#developers">Developers</a></li>
+                <li><a href="#get-started">Get Started</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#model-commons">Model Commons</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Advance Medical Research Through Open Collaboration</h1>
+            <p>Join researchers from Mayo Clinic, Stanford, and Johns Hopkins in developing next-generation medical imaging and neuromodulation technology</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Schedule Research Consultation</button>
+                <button class="btn btn-outline">View Research Resources</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: What is Openwater? -->
+    <section id="about-openwater">
+        <div class="container">
+            <h2>What is Openwater?</h2>
+
+            <div class="tech-overview">
+                <h3>🔬 Technology Overview</h3>
+                <div class="placeholder">
+                    <!-- TODO: PLACEHOLDER - Replace with actual content from stakeholders -->
+                    Technology overview in non-technical language (500 words)
+                </div>
+                <p>Openwater develops open-source platforms for medical imaging and neuromodulation with focus on democratizing advanced medical technology through collaborative research and development. Our core mission is to make cutting-edge medical technologies accessible to researchers worldwide while maintaining scientific rigor and patient safety.</p>
+
+                <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--deep-navy);">Core Technologies</h4>
+                <ul>
+                    <li><strong>OpenLIFU:</strong> Focused ultrasound for brain imaging and therapy with precision targeting</li>
+                    <li><strong>OpenMOTION:</strong> Motion tracking for medical applications in rehabilitation and diagnostics</li>
+                </ul>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🧠</span> Research Applications</h3>
+                    <ul>
+                        <li>Neuroimaging and brain stimulation</li>
+                        <li>Cancer treatment (oncology)</li>
+                        <li>Vascular imaging (blood flow)</li>
+                        <li>Motion analysis for rehabilitation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🎯</span> Current Research Focus</h3>
+                    <div class="placeholder">
+                        <!-- TODO: PLACEHOLDER - Replace with current research areas -->
+                        List of active research areas from stakeholders
+                    </div>
+                    <ul>
+                        <li>Low-intensity focused ultrasound for depression treatment</li>
+                        <li>Real-time blood flow monitoring</li>
+                        <li>Portable medical imaging devices</li>
+                        <li>AI-enhanced image processing</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">📚</span> Published Research</h3>
+                    <p>Explore our growing body of academic publications and research outputs:</p>
+                    <ul>
+                        <li><a href="#" style="color: var(--primary-teal); text-decoration: none;">Awesome Openwater - Academic Papers</a></li>
+                        <li><a href="#" style="color: var(--primary-teal); text-decoration: none;">Research Documentation</a></li>
+                        <li><a href="#" style="color: var(--primary-teal); text-decoration: none;">Technical Specifications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Research Collaboration -->
+    <section id="research-collaboration">
+        <div class="container">
+            <h2>Research Collaboration</h2>
+
+            <div class="placeholder" style="margin-bottom: 40px;">
+                <!-- TODO: PLACEHOLDER - Replace with collaboration policy from stakeholders -->
+                Research collaboration policy and framework (500 words)
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🤝</span> Types of Collaboration</h3>
+                    <ul>
+                        <li><strong>Joint Studies:</strong> Collaborative research projects with shared goals</li>
+                        <li><strong>Platform Access:</strong> Use Openwater hardware/software for your research</li>
+                        <li><strong>Validation Studies:</strong> Help validate our technology in clinical settings</li>
+                        <li><strong>Method Development:</strong> Develop new imaging or stimulation protocols</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">📋</span> Partnership Process</h3>
+                    <ol>
+                        <li>Submit research proposal or inquiry</li>
+                        <li>Schedule consultation with research team</li>
+                        <li>Review collaboration agreement</li>
+                        <li>Access technical resources and support</li>
+                        <li>Conduct research with ongoing collaboration</li>
+                        <li>Publish results with appropriate attribution</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🔒</span> Data Sharing Policies</h3>
+                    <div class="placeholder">
+                        <!-- TODO: PLACEHOLDER - Replace with data sharing details -->
+                        How we handle research data from stakeholders
+                    </div>
+                    <ul>
+                        <li>Your data remains your property</li>
+                        <li>Aggregated/anonymized data may be shared publicly</li>
+                        <li>HIPAA compliance for clinical data</li>
+                        <li>IRB approval coordination</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div class="tech-overview">
+                    <h3>✍️ Co-Authorship Guidelines</h3>
+                    <div class="placeholder">
+                        <!-- TODO: PLACEHOLDER - Replace with co-authorship guidelines -->
+                        Clear expectations for publication from stakeholders
+                    </div>
+                    <ul>
+                        <li>Standard academic authorship principles apply</li>
+                        <li>Openwater team members may be co-authors based on contribution</li>
+                        <li>Platform acknowledgment required in publications</li>
+                        <li>Pre-publication review process (optional)</li>
+                    </ul>
+                </div>
+
+                <div class="tech-overview">
+                    <h3>⚖️ IP Considerations</h3>
+                    <div class="placeholder">
+                        <!-- TODO: PLACEHOLDER - Replace with IP framework -->
+                        Intellectual property framework from stakeholders
+                    </div>
+                    <ul>
+                        <li>Open-source licensing (AGPL-3.0 transitioning to Apache 2.0)</li>
+                        <li>Your research findings and methods remain yours</li>
+                        <li>Platform improvements may be contributed back to project</li>
+                        <li>Patent considerations for novel inventions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Model Commons -->
+    <section id="model-commons">
+        <div class="container">
+            <h2>Model Commons</h2>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🏛️</span> What is Model Commons?</h3>
+                    <p>A centralized repository for research data, models, and protocols in the Openwater ecosystem. Share your datasets, trained models, and experimental protocols with the research community while maintaining control and attribution.</p>
+                    <button class="btn btn-primary">Explore Model Commons</button>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">📤</span> Publishing Your Work</h3>
+                    <ol>
+                        <li>Prepare your research data or models</li>
+                        <li>Add metadata and comprehensive documentation</li>
+                        <li>Submit via GitHub or web portal</li>
+                        <li>Community review and publication</li>
+                    </ol>
+                    <button class="btn btn-primary">Submit to Model Commons</button>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">📥</span> Accessing Research</h3>
+                    <p>Browse available datasets, trained models, and protocols from fellow researchers:</p>
+                    <ul>
+                        <li>Imaging datasets for benchmarking</li>
+                        <li>Stimulation protocols and parameters</li>
+                        <li>Analysis pipelines and code</li>
+                        <li>Calibration data and reference materials</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">📖</span> Citation Standards</h3>
+                    <p>Properly credit Openwater and shared datasets in your publications. We provide citation templates and guidelines to make attribution simple and consistent.</p>
+                    <button class="btn btn-primary">View Citation Guide</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Getting Started -->
+    <section id="get-started">
+        <div class="container">
+            <h2>Getting Started as a Researcher</h2>
+
+            <div class="steps-container">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <h3>Complete Interest Form</h3>
+                    <p>Tell us about your research interests, institution, and collaboration goals</p>
+                    <button class="btn btn-primary">Fill Out Form</button>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <h3>Schedule Consultation</h3>
+                    <p>Meet with our research team to discuss your project and alignment</p>
+                    <button class="btn btn-primary">Schedule Call</button>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <h3>Join Community</h3>
+                    <p>Connect with other researchers in our Discord #research channel</p>
+                    <button class="btn btn-primary">Join Discord</button>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">4</div>
+                    <h3>Access Resources</h3>
+                    <p>Get documentation, datasets, and technical specifications</p>
+                    <button class="btn btn-primary">View Documentation</button>
+                </div>
+            </div>
+
+            <!-- Research Interest Form -->
+            <div class="form-wrapper">
+                <h3>🔬 Research Interest Form</h3>
+                <form id="research-form">
+                    <div id="form-success" class="success-message">
+                        Thank you! Your research interest has been submitted. Our team will contact you within 2 business days.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="institution">Institution / Organization *</label>
+                        <input type="text" id="institution" name="institution" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="research-area">Primary Research Area *</label>
+                        <select id="research-area" name="research-area" required>
+                            <option value="">Select a research area</option>
+                            <option value="neuroimaging">Neuroimaging</option>
+                            <option value="neuromodulation">Neuromodulation</option>
+                            <option value="oncology">Oncology</option>
+                            <option value="vascular">Vascular Imaging</option>
+                            <option value="motion">Motion Analysis & Rehabilitation</option>
+                            <option value="other">Other / Multiple Areas</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="project-description">Project Description *</label>
+                        <textarea id="project-description" name="project-description" rows="5" placeholder="Describe your research project, goals, and how Openwater technology could support your work..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Collaboration Type *</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="collaboration-type" value="joint-study" required>
+                                Joint Study - Collaborative research with shared goals
+                            </label>
+                            <label>
+                                <input type="radio" name="collaboration-type" value="platform-access" required>
+                                Platform Access - Use Openwater technology for your research
+                            </label>
+                            <label>
+                                <input type="radio" name="collaboration-type" value="validation" required>
+                                Validation Study - Help validate our technology
+                            </label>
+                            <label>
+                                <input type="radio" name="collaboration-type" value="method-dev" required>
+                                Method Development - Develop new protocols with us
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeline">Expected Project Timeline</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">Select timeline</option>
+                            <option value="immediate">0-3 months</option>
+                            <option value="near">3-6 months</option>
+                            <option value="medium">6-12 months</option>
+                            <option value="long">12+ months</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="newsletter" value="yes">
+                            Subscribe to Openwater research updates and webinars
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Research Interest</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Resources -->
+    <section id="resources">
+        <div class="container">
+            <h2>Research Resources</h2>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3><span class="card-icon">📖</span> Documentation</h3>
+                    <ul>
+                        <li><a href="https://docs.openwater.health">Full Technical Documentation</a></li>
+                        <li><a href="#">Hardware Specifications</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Research Protocols & Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">📊</span> Datasets & Models</h3>
+                    <ul>
+                        <li><a href="#">Model Commons Repository</a></li>
+                        <li><a href="#">Sample Imaging Datasets</a></li>
+                        <li><a href="#">Calibration Data</a></li>
+                        <li><a href="#">Pre-trained AI Models</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">🏥</span> Academic Partners</h3>
+                    <p>Collaborate with leading research institutions:</p>
+                    <ul>
+                        <li>Mayo Clinic</li>
+                        <li>Stanford University</li>
+                        <li>Johns Hopkins University</li>
+                        <li><a href="#">View full partner network</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3><span class="card-icon">💬</span> Community & Support</h3>
+                    <p><strong>Research Contact:</strong></p>
+                    <p><a href="mailto:research@openwater.health">research@openwater.health</a></p>
+                    <p><strong>Discord Community:</strong></p>
+                    <p><a href="#">Join #research channel</a></p>
+                    <p><strong>Office Hours:</strong></p>
+                    <p>Thursdays, 2-4 PM PT</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Research Collaboration?</h2>
+            <p>Join leading researchers advancing open-source medical technology and making a real impact in healthcare</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Schedule Research Consultation</button>
+                <button class="btn btn-outline">View Research Documentation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Openwater</h3>
+                    <p>Advancing medical technology through open collaboration and research</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Research</h3>
+                    <p><a href="#">Research Portal</a></p>
+                    <p><a href="#">Model Commons</a></p>
+                    <p><a href="#">Documentation</a></p>
+                    <p><a href="#">Research Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <p><a href="#">Discord</a></p>
+                    <p><a href="#">GitHub</a></p>
+                    <p><a href="#">Community Guidelines</a></p>
+                    <p><a href="#">Contribute</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <p><a href="#">Blog</a></p>
+                    <p><a href="#">Publications</a></p>
+                    <p><a href="#">Press Kit</a></p>
+                    <p><a href="#">Contact</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Openwater. All rights reserved. | <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Terms of Service</a></p>
+                <p style="margin-top: 10px;">Contact: <a href="mailto:community@openwater.health" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">community@openwater.health</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handler
+        const researchForm = document.getElementById('research-form');
+
+        if (researchForm) {
+            researchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Collect form data
+                const formData = new FormData(researchForm);
+                const data = {
+                    name: formData.get('name'),
+                    institution: formData.get('institution'),
+                    email: formData.get('email'),
+                    researchArea: formData.get('research-area'),
+                    projectDescription: formData.get('project-description'),
+                    collaborationType: formData.get('collaboration-type'),
+                    timeline: formData.get('timeline'),
+                    newsletter: formData.get('newsletter') ? true : false
+                };
+
+                // Log form data (in production, this would send to a backend service)
+                console.log('Research Form Submitted:', data);
+
+                // Show success message
+                const successMsg = document.getElementById('form-success');
+                successMsg.classList.add('show');
+
+                // Reset form
+                researchForm.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
