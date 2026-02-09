@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Stats Test - Openwater Community</title>
+    <style>
+        :root {
+            --deep-navy: #0A2540;
+            --primary-teal: #0891B2;
+            --bright-cyan: #06B6D4;
+            --light-bg: #F0F9FF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--light-bg);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--deep-navy);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .test-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-teal), var(--bright-cyan));
+            color: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-updated {
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 16px;
+        }
+
+        .button {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+        }
+
+        .button:hover {
+            background: var(--bright-cyan);
+        }
+
+        .info-box {
+            background: #fff4e6;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .code {
+            background: #1e293b;
+            color: #22d3ee;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        #console-log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+
+        #console-log p {
+            margin: 4px 0;
+        }
+
+        .log-info { color: #22d3ee; }
+        .log-warn { color: #f59e0b; }
+        .log-error { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 GitHub Stats Module - Test Page</h1>
+        <p class="subtitle">Testing Phase 1: Dynamic Infrastructure Implementation</p>
+
+        <!-- Test Section 1: Basic Stats Display -->
+        <div class="test-section">
+            <h2>Test 1: GitHub Stats Display</h2>
+            <p>This tests the <span class="code">github-stats.js</span> module with caching and rate limit handling.</p>
+
+            <div id="github-stats">
+                <!-- Stats will be inserted here by JavaScript -->
+            </div>
+
+            <div class="info-box">
+                <strong>How it works:</strong><br>
+                1. Checks localStorage cache (30-min TTL)<br>
+                2. Checks GitHub API rate limit<br>
+                3. Fetches fresh data if possible<br>
+                4. Falls back to static JSON if rate limited<br>
+                5. Caches result for future visits
+            </div>
+        </div>
+
+        <!-- Test Section 2: Cache Management -->
+        <div class="test-section">
+            <h2>Test 2: Cache Management</h2>
+            <p>Test cache operations and persistence.</p>
+
+            <button class="button" onclick="checkCache()">Check Cache Status</button>
+            <button class="button" onclick="clearCache()">Clear Cache</button>
+            <button class="button" onclick="refreshStats()">Force Refresh Stats</button>
+
+            <div id="cache-status" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- Test Section 3: Rate Limit Testing -->
+        <div class="test-section">
+            <h2>Test 3: Rate Limit Handling</h2>
+            <p>Simulate and test rate limit scenarios.</p>
+
+            <button class="button" onclick="checkRateLimit()">Check Current Rate Limit</button>
+            <button class="button" onclick="testFallback()">Test Static Fallback</button>
+
+            <div id="rate-limit-status" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- Console Log -->
+        <div class="test-section">
+            <h2>Console Log</h2>
+            <p>Real-time console output (also check browser DevTools)</p>
+            <div id="console-log"></div>
+            <button class="button" onclick="clearConsoleLog()">Clear Log</button>
+        </div>
+
+        <!-- Implementation Details -->
+        <div class="test-section">
+            <h2>📋 Implementation Details</h2>
+
+            <h3>Phase 1 Complete ✅</h3>
+            <ul>
+                <li><strong>cache-manager.js</strong> - LocalStorage caching with TTL</li>
+                <li><strong>github-stats.js</strong> - GitHub API integration with rate limit handling</li>
+                <li><strong>main.js</strong> - Module initialization</li>
+                <li><strong>.github/workflows/update-stats.yml</strong> - GitHub Actions workflow (6-hour schedule)</li>
+                <li><strong>scripts/fetch-activity.js</strong> - Fetches commits, PRs, issues</li>
+                <li><strong>scripts/fetch-contributors.js</strong> - Aggregates contributor data</li>
+            </ul>
+
+            <h3>Features Implemented</h3>
+            <ul>
+                <li>✅ Multi-layer caching (localStorage + static fallback)</li>
+                <li>✅ GitHub API rate limit detection and handling</li>
+                <li>✅ Automatic fallback to pre-fetched data</li>
+                <li>✅ "Last updated" timestamps</li>
+                <li>✅ ES6 module architecture</li>
+                <li>✅ Comprehensive error handling</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>✅ Phase 1 Complete!</strong><br>
+                The dynamic infrastructure is ready. GitHub stats will be fetched from the API (with caching) and gracefully fall back to static data when rate limited.
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script type="module">
+        import GitHubStats from './js/modules/github-stats.js';
+        import CacheManager from './js/modules/cache-manager.js';
+
+        // Initialize stats on page load
+        GitHubStats.displayStats('github-stats');
+
+        // Expose to window for button functions
+        window.GitHubStats = GitHubStats;
+        window.CacheManager = CacheManager;
+
+        // Custom console logging to page
+        const consoleLog = document.getElementById('console-log');
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+
+        function logToPage(message, type = 'info') {
+            const p = document.createElement('p');
+            p.className = `log-${type}`;
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleLog.appendChild(p);
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+        }
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logToPage(args.join(' '), 'info');
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            logToPage('⚠️ ' + args.join(' '), 'warn');
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            logToPage('❌ ' + args.join(' '), 'error');
+        };
+
+        // Button functions
+        window.checkCache = function() {
+            const orgAge = CacheManager.getAge('github_org_stats');
+            const reposAge = CacheManager.getAge('github_repos');
+
+            const status = document.getElementById('cache-status');
+            status.innerHTML = `
+                <p><strong>Org Stats:</strong> ${orgAge !== null ? `Cached (${orgAge} minutes old)` : 'Not cached'}</p>
+                <p><strong>Repos:</strong> ${reposAge !== null ? `Cached (${reposAge} minutes old)` : 'Not cached'}</p>
+                <p><strong>Last Updated:</strong> ${CacheManager.getLastUpdated('github_org_stats')}</p>
+            `;
+        };
+
+        window.clearCache = function() {
+            CacheManager.clearAll();
+            console.log('Cache cleared!');
+            document.getElementById('cache-status').innerHTML = '<p style="color: green;">✅ Cache cleared successfully</p>';
+        };
+
+        window.refreshStats = async function() {
+            CacheManager.clearAll();
+            await GitHubStats.displayStats('github-stats');
+            console.log('Stats refreshed!');
+        };
+
+        window.checkRateLimit = async function() {
+            const response = await fetch('https://api.github.com/rate_limit');
+            const data = await response.json();
+
+            const status = document.getElementById('rate-limit-status');
+            status.innerHTML = `
+                <p><strong>Core API:</strong> ${data.resources.core.remaining} / ${data.resources.core.limit} remaining</p>
+                <p><strong>Resets at:</strong> ${new Date(data.resources.core.reset * 1000).toLocaleString()}</p>
+                <p style="color: ${data.resources.core.remaining < 10 ? 'red' : 'green'};">
+                    ${data.resources.core.remaining < 10 ? '⚠️ Rate limit low!' : '✅ Rate limit OK'}
+                </p>
+            `;
+        };
+
+        window.testFallback = async function() {
+            const data = await GitHubStats.loadStaticData('github-stats.json');
+            console.log('Loaded static fallback data:', data);
+            document.getElementById('rate-limit-status').innerHTML = '<p style="color: green;">✅ Static fallback data loaded successfully. Check console for details.</p>';
+        };
+
+        window.clearConsoleLog = function() {
+            consoleLog.innerHTML = '';
+        };
+    </script>
+</body>
+</html>

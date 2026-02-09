@@ -1,0 +1,74 @@
+name: Update Community Stats
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  # Allow manual triggering from Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Need write permission to commit data files
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch GitHub Organization Stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create data directory if it doesn't exist
+          mkdir -p data
+
+          # Fetch organization info
+          curl -H "Authorization: token $GITHUB_TOKEN" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/orgs/openwaterhealth \
+               > data/github-stats.json
+
+          # Fetch repository list
+          curl -H "Authorization: token $GITHUB_TOKEN" \
+               -H "Accept: application/vnd.github.v3+json" \
+               "https://api.github.com/orgs/openwaterhealth/repos?per_page=100&sort=updated" \
+               > data/repos.json
+
+          echo "✅ Fetched organization and repository data"
+
+      - name: Fetch Recent Activity
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/fetch-activity.js
+          echo "✅ Fetched recent activity"
+
+      - name: Fetch Contributors
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/fetch-contributors.js
+          echo "✅ Fetched contributor data"
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "ℹ️ No changes to commit"
+          else
+            git commit -m "Update community stats [skip ci]"
+            git push
+            echo "✅ Committed and pushed updated stats"
+          fi

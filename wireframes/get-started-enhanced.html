@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - Wireframe</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        section { border: 2px dashed #ccc; padding: 20px; margin: 20px 0; }
+        h1 { color: #333; }
+        h2 { color: #666; border-bottom: 1px solid #ccc; }
+        .note { background: #ffffcc; padding: 10px; margin: 10px 0; }
+        .component { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>GET STARTED PAGE - Enhanced Wireframe</h1>
+    <p class="note"><strong>Purpose:</strong> Central onboarding hub with pathway selector and interactive wizard</p>
+
+    <!-- NAVIGATION -->
+    <section>
+        <h2>Navigation Bar (Same as existing site)</h2>
+        <p>Logo | Home | Developers | Get Started (active) | Community | Model Commons</p>
+    </section>
+
+    <!-- HERO SECTION -->
+    <section>
+        <h2>Hero Section</h2>
+        <div class="component">
+            <h3>Headline: "Start Contributing to Openwater"</h3>
+            <p>Subheadline: Join 2,000+ developers, researchers, and clinicians building open-source medical devices</p>
+            <p>[Hero image with gradient overlay - same style as existing site]</p>
+        </div>
+    </section>
+
+    <!-- PATHWAY SELECTOR -->
+    <section>
+        <h2>Choose Your Pathway (INTERACTIVE)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Three clickable cards that expand when selected
+        </div>
+
+        <div class="component">
+            <h3>Card 1: 👨‍💻 Developer</h3>
+            <p>Contribute code, hardware designs, documentation, or testing</p>
+            <button>Select Developer Path →</button>
+
+            <div class="note">When expanded, shows sub-pathways:
+                <ul>
+                    <li>Software Development</li>
+                    <li>Hardware Development</li>
+                    <li>Documentation</li>
+                    <li>QA & Testing</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="component">
+            <h3>Card 2: 🔬 Researcher</h3>
+            <p>Collaborate on studies, publish research, access datasets</p>
+            <button>Select Researcher Path →</button>
+        </div>
+
+        <div class="component">
+            <h3>Card 3: 🏥 Clinician</h3>
+            <p>Provide clinical feedback, participate in trials, advise on applications</p>
+            <button>Select Clinician Path →</button>
+        </div>
+
+        <p style="text-align: center;">
+            <a href="#">Not sure which path? Take our 1-minute quiz →</a>
+        </p>
+    </section>
+
+    <!-- ONBOARDING CHECKLIST -->
+    <section>
+        <h2>Your Onboarding Checklist (INTERACTIVE)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Progress tracking saved to localStorage
+        </div>
+
+        <div class="component">
+            <p>☐ Step 1: Choose your pathway</p>
+            <p>☐ Step 2: Join GitHub organization</p>
+            <p>☐ Step 3: Join Discord community</p>
+            <p>☐ Step 4: Explore resources</p>
+            <p>☐ Step 5: Make your first contribution</p>
+        </div>
+
+        <p class="note">Checkboxes persist across sessions. Progress bar shows completion.</p>
+    </section>
+
+    <!-- QUICK ACTIONS BAR -->
+    <section>
+        <h2>Quick Actions Bar (STICKY FOOTER)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Sticky bar at bottom with primary CTAs
+        </div>
+
+        <div class="component" style="background: #e0e0e0;">
+            <button>[Request GitHub Access]</button>
+            <button>[Join Discord (2,000+ members)]</button>
+            <button>[View Good First Issues]</button>
+            <button>[Schedule Onboarding Call]</button>
+        </div>
+    </section>
+
+    <!-- GITHUB ORG ACCESS FORM -->
+    <section>
+        <h2>Request GitHub Organization Access (NEW)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Automated org access via GitHub issue creation
+        </div>
+
+        <div class="component">
+            <form>
+                <p>GitHub Username: <input type="text" placeholder="yourusername"></p>
+                <p>Selected Pathway: <input type="text" value="Developer" disabled></p>
+                <p>Areas of Interest:
+                    <label><input type="checkbox"> Software</label>
+                    <label><input type="checkbox"> Hardware</label>
+                    <label><input type="checkbox"> Documentation</label>
+                    <label><input type="checkbox"> Testing</label>
+                </p>
+                <p>Brief Introduction: <textarea rows="3"></textarea></p>
+                <button>Submit Request</button>
+            </form>
+            <p class="note">On submit: Creates GitHub issue, shows success message, adds to Discord</p>
+        </div>
+    </section>
+
+    <!-- PATHWAY-SPECIFIC CONTENT -->
+    <section>
+        <h2>Pathway-Specific Quick Start (DYNAMIC)</h2>
+        <div class="note">
+            <strong>Changes based on selected pathway</strong>
+        </div>
+
+        <div class="component">
+            <h3>For Developers:</h3>
+            <ol>
+                <li>Fork and clone a repository</li>
+                <li>Set up development environment</li>
+                <li>Find a good first issue</li>
+                <li>Make your contribution</li>
+            </ol>
+            <p>[Link to detailed developer guide]</p>
+        </div>
+
+        <div class="component">
+            <h3>For Researchers:</h3>
+            <ol>
+                <li>Review research collaboration policy</li>
+                <li>Schedule research consultation</li>
+                <li>Access technical documentation</li>
+                <li>Explore Model Commons</li>
+            </ol>
+            <p>[Link to researcher pathway page]</p>
+        </div>
+
+        <div class="component">
+            <h3>For Clinicians:</h3>
+            <ol>
+                <li>Complete clinical interest survey</li>
+                <li>Schedule clinical consultation</li>
+                <li>Review regulatory information</li>
+                <li>Join clinical advisory board</li>
+            </ol>
+            <p>[Link to clinician pathway page]</p>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section>
+        <h2>Frequently Asked Questions</h2>
+        <div class="component">
+            <details>
+                <summary><strong>How long does GitHub org access take?</strong></summary>
+                <p>Usually within 24 hours. Automated requests are reviewed daily.</p>
+            </details>
+
+            <details>
+                <summary><strong>Do I need coding experience?</strong></summary>
+                <p>Not necessarily! We have opportunities for hardware, documentation, research, and clinical contributors.</p>
+            </details>
+
+            <details>
+                <summary><strong>Can I contribute in multiple areas?</strong></summary>
+                <p>Absolutely! Many contributors work across pathways.</p>
+            </details>
+
+            <details>
+                <summary><strong>Is there mentorship available?</strong></summary>
+                <p>Yes, we match new contributors with experienced mentors in Discord.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section>
+        <h2>Footer (Same as existing site)</h2>
+        <p>© 2024 Openwater | Contact: community@openwater.health</p>
+    </section>
+
+    <hr>
+    <h2>Technical Notes</h2>
+    <ul>
+        <li>JavaScript module: <code>onboarding-flow.js</code> handles pathway selection and progress tracking</li>
+        <li>LocalStorage keys: <code>ow_selected_pathway</code>, <code>ow_checklist_progress</code></li>
+        <li>Quick actions bar uses <code>position: sticky</code></li>
+        <li>Org access form submits via GitHub API (creates issue in .github repo)</li>
+        <li>Styling matches existing site (same colors, fonts, card styles)</li>
+    </ul>
+</body>
+</html>

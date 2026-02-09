@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Enhanced - Wireframe</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        section { border: 2px dashed #ccc; padding: 20px; margin: 20px 0; }
+        h1 { color: #333; }
+        h2 { color: #666; border-bottom: 1px solid #ccc; }
+        .note { background: #ffffcc; padding: 10px; margin: 10px 0; }
+        .component { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+        .dynamic { background: #cce5ff; border-left: 4px solid #0066cc; }
+    </style>
+</head>
+<body>
+    <h1>COMMUNITY PAGE - Enhanced with Dynamic Features</h1>
+    <p class="note"><strong>Purpose:</strong> Add live activity feed, contributor leaderboard, and real-time stats</p>
+
+    <!-- NAVIGATION -->
+    <section>
+        <h2>Navigation Bar</h2>
+        <p>Logo | Home | Developers | Get Started | Community (active) | Model Commons</p>
+    </section>
+
+    <!-- HERO SECTION -->
+    <section>
+        <h2>Hero Section (Keep existing)</h2>
+        <div class="component">
+            <h3>About Openwater</h3>
+            <p>[Keep existing mission, technology, community focus content]</p>
+        </div>
+    </section>
+
+    <!-- DYNAMIC STATS DASHBOARD -->
+    <section>
+        <h2>Community Stats Dashboard (ENHANCED - DYNAMIC)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Real-time stats pulled from GitHub API
+        </div>
+
+        <div class="component dynamic">
+            <h3>Live Statistics (JavaScript-powered)</h3>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;">
+                <div>
+                    <p><strong><span id="total-repos">58</span></strong></p>
+                    <p>Repositories</p>
+                    <p class="note">Fetched from GitHub API</p>
+                </div>
+                <div>
+                    <p><strong><span id="total-stars">???</span></strong></p>
+                    <p>Total Stars</p>
+                    <p class="note">Aggregated across all repos</p>
+                </div>
+                <div>
+                    <p><strong><span id="total-contributors">2,000+</span></strong></p>
+                    <p>Contributors</p>
+                    <p class="note">Unique contributors count</p>
+                </div>
+                <div>
+                    <p><strong><span id="active-repos">??</span></strong></p>
+                    <p>Active Repos</p>
+                    <p class="note">Updated in last 90 days</p>
+                </div>
+                <div>
+                    <p><strong><span id="discord-members">???</span></strong></p>
+                    <p>Discord Members</p>
+                    <p class="note">From Discord widget API</p>
+                </div>
+            </div>
+            <p style="text-align: right; font-size: 0.875rem; color: #666;">
+                Last updated: <span id="stats-timestamp">2 minutes ago</span>
+            </p>
+        </div>
+
+        <p class="note">
+            <strong>Technical:</strong> Module <code>github-stats.js</code> fetches from GitHub API,
+            uses localStorage caching (30-min TTL), falls back to static JSON when rate limited
+        </p>
+    </section>
+
+    <!-- ACTIVITY FEED -->
+    <section>
+        <h2>Recent Community Activity (NEW - DYNAMIC)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Live feed of commits, PRs, and issues across repositories
+        </div>
+
+        <div class="component dynamic">
+            <h3>Activity Feed</h3>
+            <p>🔄 Auto-refreshes every 5 minutes | Showing last 20 activities</p>
+
+            <div style="border-left: 3px solid #0891B2; padding-left: 15px; margin: 10px 0;">
+                <p><strong>john-doe</strong> opened PR #234 in <strong>OpenLIFU-python</strong></p>
+                <p style="color: #666; font-size: 0.875rem;">Add support for multi-target sonication</p>
+                <p style="color: #999; font-size: 0.75rem;">2 hours ago</p>
+            </div>
+
+            <div style="border-left: 3px solid #10B981; padding-left: 15px; margin: 10px 0;">
+                <p><strong>jane-smith</strong> committed to <strong>openwater-docs</strong></p>
+                <p style="color: #666; font-size: 0.875rem;">Update installation guide for Windows</p>
+                <p style="color: #999; font-size: 0.75rem;">4 hours ago</p>
+            </div>
+
+            <div style="border-left: 3px solid #F59E0B; padding-left: 15px; margin: 10px 0;">
+                <p><strong>dev-user</strong> opened issue #456 in <strong>openwater-community</strong></p>
+                <p style="color: #666; font-size: 0.875rem;">Request: Add dark mode toggle</p>
+                <p style="color: #999; font-size: 0.75rem;">6 hours ago</p>
+            </div>
+
+            <p class="note">[... more activity items ...]</p>
+
+            <p style="text-align: center; margin-top: 20px;">
+                <button>Load More Activity →</button>
+            </p>
+        </div>
+
+        <p class="note">
+            <strong>Technical:</strong> Module <code>activity-feed.js</code> fetches recent commits, PRs, and issues
+            from top 10 active repos. Color-coded by type: commits (cyan), PRs (teal), issues (yellow).
+        </p>
+    </section>
+
+    <!-- CONTRIBUTOR LEADERBOARD -->
+    <section>
+        <h2>Contributor Leaderboard (NEW - DYNAMIC)</h2>
+        <div class="note">
+            <strong>New Feature:</strong> Recognition for top contributors with badges
+        </div>
+
+        <div class="component dynamic">
+            <h3>Top Contributors</h3>
+            <p>Recognizing our community leaders 🏆</p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+                <div style="display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+                    <img src="https://via.placeholder.com/60" alt="Avatar" style="border-radius: 50%; width: 60px; height: 60px;">
+                    <div>
+                        <p><strong>contributor-one</strong> 🥇</p>
+                        <p style="color: #666;">1,234 contributions</p>
+                        <p style="font-size: 0.75rem; color: #999;">Top Contributor | Core Maintainer</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+                    <img src="https://via.placeholder.com/60" alt="Avatar" style="border-radius: 50%; width: 60px; height: 60px;">
+                    <div>
+                        <p><strong>contributor-two</strong> 🥈</p>
+                        <p style="color: #666;">987 contributions</p>
+                        <p style="font-size: 0.75rem; color: #999;">Hardware Specialist</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+                    <img src="https://via.placeholder.com/60" alt="Avatar" style="border-radius: 50%; width: 60px; height: 60px;">
+                    <div>
+                        <p><strong>contributor-three</strong> 🥉</p>
+                        <p style="color: #666;">765 contributions</p>
+                        <p style="font-size: 0.75rem; color: #999;">Documentation Hero</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+                    <img src="https://via.placeholder.com/60" alt="Avatar" style="border-radius: 50%; width: 60px; height: 60px;">
+                    <div>
+                        <p><strong>new-contributor</strong> ⭐</p>
+                        <p style="color: #666;">42 contributions</p>
+                        <p style="font-size: 0.75rem; color: #999;">Rising Star | Newcomer</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center;">
+                <a href="https://github.com/OpenwaterHealth">View All Contributors on GitHub →</a>
+            </p>
+        </div>
+
+        <p class="note">
+            <strong>Technical:</strong> Module <code>contributor-board.js</code> aggregates contributor data
+            across all repos, assigns badges based on contribution patterns. Cached for 24 hours.
+        </p>
+
+        <div class="component">
+            <h3>Recognition Badges</h3>
+            <ul>
+                <li>🥇 <strong>Top Contributor:</strong> Top 3 by total contributions</li>
+                <li>🏆 <strong>Core Maintainer:</strong> Has maintainer access to repos</li>
+                <li>⭐ <strong>Rising Star:</strong> High recent activity, joined in last 6 months</li>
+                <li>🌟 <strong>Newcomer:</strong> First contribution in last 30 days</li>
+                <li>📚 <strong>Documentation Hero:</strong> Primary contributions to docs</li>
+                <li>🔧 <strong>Hardware Specialist:</strong> Primary contributions to hardware repos</li>
+                <li>🧪 <strong>Testing Champion:</strong> Primary contributions to testing</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- DISCORD WIDGET -->
+    <section>
+        <h2>Discord Community (ENHANCED)</h2>
+        <div class="note">
+            <strong>Enhanced:</strong> Add live member count and online status
+        </div>
+
+        <div class="component dynamic">
+            <h3>Join Our Discord</h3>
+            <p><strong><span id="discord-member-count">2,000+</span> members</strong> | <strong><span id="discord-online-count">150</span> online now</strong></p>
+            <p>Connect with developers, researchers, and clinicians in real-time</p>
+            <button>Join Discord Server</button>
+        </div>
+
+        <p class="note">
+            <strong>Technical:</strong> Module <code>discord-widget.js</code> fetches from Discord widget API.
+            Cached for 5 minutes.
+        </p>
+    </section>
+
+    <!-- SUCCESS STORIES (Keep existing) -->
+    <section>
+        <h2>Success Stories (Keep existing content)</h2>
+        <div class="component">
+            <p>[Mayo Clinic, Stanford, Johns Hopkins examples - keep as is]</p>
+        </div>
+    </section>
+
+    <!-- SOCIAL MEDIA (Keep existing) -->
+    <section>
+        <h2>Social Media (Keep existing)</h2>
+        <div class="component">
+            <p>[GitHub, YouTube, etc. - keep as is]</p>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section>
+        <h2>Call to Action (Keep existing)</h2>
+        <div class="component">
+            <h3>Get Involved</h3>
+            <button>Join Discord</button>
+            <button>Request GitHub Access</button>
+            <button>Schedule Demo</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section>
+        <h2>Footer (Same as existing site)</h2>
+        <p>© 2024 Openwater | Contact: community@openwater.health</p>
+    </section>
+
+    <hr>
+    <h2>Technical Implementation</h2>
+    <ul>
+        <li><strong>GitHub Stats:</strong> <code>js/modules/github-stats.js</code></li>
+        <li><strong>Activity Feed:</strong> <code>js/modules/activity-feed.js</code></li>
+        <li><strong>Contributor Board:</strong> <code>js/modules/contributor-board.js</code></li>
+        <li><strong>Discord Widget:</strong> <code>js/modules/discord-widget.js</code></li>
+        <li><strong>Cache Manager:</strong> <code>js/modules/cache-manager.js</code></li>
+        <li><strong>Main Loader:</strong> <code>js/main.js</code></li>
+    </ul>
+
+    <h2>Data Sources</h2>
+    <ul>
+        <li><strong>GitHub API:</strong>
+            <ul>
+                <li>GET /orgs/openwaterhealth (org info)</li>
+                <li>GET /orgs/openwaterhealth/repos (repo list)</li>
+                <li>GET /repos/{owner}/{repo}/commits (recent commits)</li>
+                <li>GET /repos/{owner}/{repo}/pulls (PRs)</li>
+                <li>GET /repos/{owner}/{repo}/issues (issues)</li>
+                <li>GET /repos/{owner}/{repo}/contributors (contributors)</li>
+            </ul>
+        </li>
+        <li><strong>Discord API:</strong>
+            <ul>
+                <li>GET https://discord.com/api/guilds/{GUILD_ID}/widget.json</li>
+            </ul>
+        </li>
+        <li><strong>Fallback Data:</strong>
+            <ul>
+                <li>data/github-stats.json (updated by GitHub Actions)</li>
+                <li>data/recent-activity.json (updated by GitHub Actions)</li>
+                <li>data/contributors.json (updated by GitHub Actions)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Caching Strategy</h2>
+    <ul>
+        <li><strong>LocalStorage:</strong> 30-minute TTL for all API responses</li>
+        <li><strong>GitHub Actions:</strong> Updates static JSON files every 6 hours</li>
+        <li><strong>Rate Limit Handling:</strong> Check X-RateLimit-Remaining, fall back to static when low</li>
+        <li><strong>Last Updated Timestamps:</strong> Display to users for transparency</li>
+    </ul>
+
+    <h2>Design Notes</h2>
+    <ul>
+        <li>Keep existing layout and styling</li>
+        <li>Add dynamic sections with subtle loading indicators</li>
+        <li>Use gradient borders for dynamic components (cyan/teal)</li>
+        <li>Activity items color-coded by type</li>
+        <li>Contributor cards with avatar, name, stats, badges</li>
+        <li>Mobile-responsive grid layouts</li>
+    </ul>
+</body>
+</html>
