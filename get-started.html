@@ -1232,170 +1232,42 @@
         </div>
     </div>
 
-    <script>
+    <!-- Phase 4: Onboarding Flow Module -->
+    <script type="module">
         /**
-         * PHASE 4: Onboarding Flow Enhancement
-         * This module handles interactive functionality for the Get Started page
-         * Future development will expand with:
-         * - Advanced pathway customization
-         * - Progress saving to localStorage
-         * - Pathway-specific recommendations
-         * - Form validation and submission handling
+         * PHASE 4: Interactive Onboarding Wizard
+         * Powered by onboarding-flow.js module with:
+         * - State management and localStorage persistence
+         * - Dynamic content switching
+         * - Progress tracking and celebration
+         * - Form integration and validation
          */
+        import OnboardingFlow from './js/modules/onboarding-flow.js';
 
-        // ===== Pathway Selector =====
-        const pathwayCards = document.querySelectorAll('.pathway-card');
-        const pathwayContents = document.querySelectorAll('.pathway-content');
-
-        pathwayCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const pathway = this.getAttribute('data-pathway');
-                selectPathway(pathway);
+        // Initialize onboarding flow when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                window.onboardingFlow = new OnboardingFlow();
+                console.log('✅ Onboarding Flow initialized');
             });
+        } else {
+            window.onboardingFlow = new OnboardingFlow();
+            console.log('✅ Onboarding Flow initialized');
+        }
 
-            // Also handle button clicks
-            const button = card.querySelector('button');
-            if (button) {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const pathway = card.getAttribute('data-pathway');
-                    selectPathway(pathway);
-                });
+        // Expose useful methods to console for debugging
+        window.getOnboardingState = () => {
+            if (window.onboardingFlow) {
+                return window.onboardingFlow.getState();
             }
-        });
+            return null;
+        };
 
-        function selectPathway(pathway) {
-            // Update card selection state
-            pathwayCards.forEach(card => {
-                card.classList.remove('selected');
-            });
-            document.querySelector(`[data-pathway="${pathway}"]`).classList.add('selected');
-
-            // Update content visibility
-            pathwayContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(`${pathway}-content`).classList.add('active');
-
-            // Save to localStorage for Phase 4
-            localStorage.setItem('ow_selected_pathway', pathway);
-
-            // Mark first checklist item as complete
-            document.getElementById('step1').checked = true;
-            updateChecklistProgress();
-        }
-
-        // ===== Checklist Progress Tracking =====
-        const checkboxes = document.querySelectorAll('.step-checkbox');
-        const progressBar = document.getElementById('progressBar');
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                // Update visual state
-                this.closest('.checklist-item').classList.toggle('completed');
-
-                // Save progress
-                const step = this.getAttribute('data-step');
-                const isChecked = this.checked;
-                localStorage.setItem(`ow_step_${step}`, isChecked);
-
-                // Update progress bar
-                updateChecklistProgress();
-            });
-        });
-
-        function updateChecklistProgress() {
-            const checkedCount = document.querySelectorAll('.step-checkbox:checked').length;
-            const totalCount = checkboxes.length;
-            const percentage = (checkedCount / totalCount) * 100;
-            progressBar.style.width = percentage + '%';
-        }
-
-        // Load saved progress from localStorage
-        function loadSavedProgress() {
-            checkboxes.forEach(checkbox => {
-                const step = checkbox.getAttribute('data-step');
-                const saved = localStorage.getItem(`ow_step_${step}`);
-                if (saved === 'true') {
-                    checkbox.checked = true;
-                    checkbox.closest('.checklist-item').classList.add('completed');
-                }
-            });
-            updateChecklistProgress();
-
-            // Load saved pathway
-            const savedPathway = localStorage.getItem('ow_selected_pathway');
-            if (savedPathway) {
-                selectPathway(savedPathway);
+        window.resetOnboarding = () => {
+            if (window.onboardingFlow) {
+                window.onboardingFlow.resetProgress();
             }
-        }
-
-        loadSavedProgress();
-
-        // ===== FAQ Accordion =====
-        const faqQuestions = document.querySelectorAll('.faq-question');
-
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', function() {
-                const faqItem = this.closest('.faq-item');
-                faqItem.classList.toggle('expanded');
-            });
-        });
-
-        // ===== GitHub Access Form =====
-        const githubForm = document.getElementById('github-access-form');
-
-        if (githubForm) {
-            githubForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Collect form data
-                const formData = new FormData(githubForm);
-                const interests = Array.from(formData.getAll('interest'));
-
-                const data = {
-                    githubUsername: formData.get('github-username'),
-                    pathway: formData.get('pathway'),
-                    interests: interests,
-                    introduction: formData.get('intro'),
-                    agreedToCoc: formData.get('coc') ? true : false
-                };
-
-                // Log form data (in production, this would send to a backend service)
-                console.log('GitHub Access Request Submitted:', data);
-
-                // Show success message
-                const successMsg = document.getElementById('form-success');
-                successMsg.classList.add('show');
-
-                // Reset form
-                githubForm.reset();
-
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    successMsg.classList.remove('show');
-                }, 5000);
-
-                // In Phase 5, this would:
-                // - Create a GitHub issue in the .github repository
-                // - Add user to Discord with role
-                // - Send confirmation email
-                // - Trigger automated GitHub org invitation
-            });
-        }
-
-        // ===== Smooth Scroll for Anchor Links =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        };
     </script>
 </body>
 </html>
